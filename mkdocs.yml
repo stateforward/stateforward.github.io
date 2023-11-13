@@ -77,4 +77,5 @@ plugins:
           show_symbol_type_toc: true
           signature_crossrefs: true
 #        summary: true
-
+extra_css:
+  - stylesheets/extra.css
