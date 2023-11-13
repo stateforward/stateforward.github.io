@@ -20,11 +20,9 @@ theme:
 
   palette:
     scheme: slate
-    primary: black
-    accent: lime
-    toggle:
-      icon: material/weather-night
-      name: Switch to system preference
+
+extra_css:
+  - stylesheets/extra.css
 
 markdown_extensions:
   - attr_list
@@ -67,7 +65,6 @@ plugins:
           docstring_section_style: table
           filters: [ "!^_" ]
           inherited_members: true
-#          merge_init_into_class: true
           separate_signature: true
           show_root_heading: true
           show_root_full_path: false
@@ -76,6 +73,3 @@ plugins:
           show_symbol_type_heading: true
           show_symbol_type_toc: true
           signature_crossrefs: true
-#        summary: true
-extra_css:
-  - stylesheets/extra.css
