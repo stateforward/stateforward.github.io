@@ -9,11 +9,13 @@
       
       
       
+        <link rel="prev" href="../CompositeState/">
       
-        <link rel="next" href="../Python/Overview/">
+      
+        <link rel="next" href="../StateMachine/">
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
     
     
@@ -22,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4b4a2bd9.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.4b4a2bd9.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.356b1318.min.css">
       
       
 
@@ -44,9 +46,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -71,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#key-features" class="md-skip">
+        <a href="#stateforward.elements--elements" class="md-skip">
           Skip to content
         </a>
       
@@ -87,9 +89,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="StateForward" class="md-header__button md-logo" aria-label="StateForward" data-md-component="logo">
+    <a href="../../../.." title="StateForward" class="md-header__button md-logo" aria-label="StateForward" data-md-component="logo">
       
-  <img src="../assets/logo.png" alt="logo">
+  <img src="../../../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -182,9 +184,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="StateForward" class="md-nav__button md-logo" aria-label="StateForward" data-md-component="logo">
+    <a href="../../../.." title="StateForward" class="md-nav__button md-logo" aria-label="StateForward" data-md-component="logo">
       
-  <img src="../assets/logo.png" alt="logo">
+  <img src="../../../../assets/logo.png" alt="logo">
 
     </a>
     StateForward
@@ -196,27 +198,9 @@
       
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Overview
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../../Overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -225,38 +209,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
-    Key Features
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#future-developments" class="md-nav__link">
-    Future Developments
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -265,6 +217,8 @@
       
   
   
+    
+  
   
     
     
@@ -283,14 +237,12 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -304,7 +256,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Python
@@ -317,7 +269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Overview/" class="md-nav__link">
+      <a href="../../../Overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -337,7 +289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Roadmap/" class="md-nav__link">
+      <a href="../../../Roadmap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -403,7 +355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Examples/LightSwitch/" class="md-nav__link">
+      <a href="../../../Examples/LightSwitch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -423,7 +375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Examples/Overview/" class="md-nav__link">
+      <a href="../../../Examples/Overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -443,7 +395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Examples/TrafficLight/" class="md-nav__link">
+      <a href="../../../Examples/TrafficLight/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -515,7 +467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Modeling/Overview/" class="md-nav__link">
+      <a href="../../../Modeling/Overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -587,7 +539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Modeling/API/Association/" class="md-nav__link">
+      <a href="../../../Modeling/API/Association/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -607,7 +559,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Modeling/API/Collection/" class="md-nav__link">
+      <a href="../../../Modeling/API/Collection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -627,7 +579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Modeling/API/Element/" class="md-nav__link">
+      <a href="../../../Modeling/API/Element/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -647,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Modeling/API/ElementInterface/" class="md-nav__link">
+      <a href="../../../Modeling/API/ElementInterface/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -667,7 +619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Modeling/API/Model/" class="md-nav__link">
+      <a href="../../../Modeling/API/Model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -687,7 +639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/Modeling/API/Preprocessor/" class="md-nav__link">
+      <a href="../../../Modeling/API/Preprocessor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -721,6 +673,8 @@
                 
   
   
+    
+  
   
     
     
@@ -737,14 +691,12 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
         
           
           <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
@@ -758,7 +710,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             StateMachine
@@ -771,7 +723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/StateMachine/Overview/" class="md-nav__link">
+      <a href="../../Overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -791,7 +743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/StateMachine/Preprocessor/" class="md-nav__link">
+      <a href="../../Preprocessor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -809,6 +761,8 @@
                 
   
   
+    
+  
   
     
     
@@ -825,14 +779,12 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3" checked>
         
           
           <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
@@ -846,7 +798,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_5_3">
             <span class="md-nav__icon md-icon"></span>
             Elements
@@ -859,7 +811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/StateMachine/Elements/Behavior/" class="md-nav__link">
+      <a href="../Behavior/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -879,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/StateMachine/Elements/CompositeState/" class="md-nav__link">
+      <a href="../CompositeState/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -897,9 +849,27 @@
                 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../Python/StateMachine/Elements/Overview/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -908,6 +878,182 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.elements--elements" class="md-nav__link">
+    Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--vertex" class="md-nav__link">
+    Vertex
+  </a>
+  
+    <nav class="md-nav" aria-label="Vertex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--finalstate" class="md-nav__link">
+    FinalState
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--transition" class="md-nav__link">
+    Transition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--pseudostatekind-enum" class="md-nav__link">
+    PseudostateKind (Enum)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--pseudostate" class="md-nav__link">
+    Pseudostate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--transitionkind-enum" class="md-nav__link">
+    TransitionKind (Enum)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--transitionpath" class="md-nav__link">
+    TransitionPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--concurrencykind-enum" class="md-nav__link">
+    ConcurrencyKind (Enum)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--event" class="md-nav__link">
+    Event
+  </a>
+  
+    <nav class="md-nav" aria-label="Event">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--anyevent" class="md-nav__link">
+    AnyEvent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--callevent" class="md-nav__link">
+    CallEvent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--timeevent" class="md-nav__link">
+    TimeEvent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--changeevent" class="md-nav__link">
+    ChangeEvent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--completionevent" class="md-nav__link">
+    CompletionEvent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--constraint" class="md-nav__link">
+    Constraint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--compositestate" class="md-nav__link">
+    CompositeState
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--state" class="md-nav__link">
+    State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--region" class="md-nav__link">
+    Region
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--behavior-and-statemachine" class="md-nav__link">
+    Behavior and StateMachine
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -919,7 +1065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/StateMachine/Elements/StateMachine/" class="md-nav__link">
+      <a href="../StateMachine/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -989,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Python/StateMachine/Interpreters/AsyncStateMachineInterpreter/" class="md-nav__link">
+      <a href="../../Interpreters/AsyncStateMachineInterpreter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1051,16 +1197,160 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#key-features" class="md-nav__link">
-    Key Features
+  <a href="#stateforward.elements--elements" class="md-nav__link">
+    Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--vertex" class="md-nav__link">
+    Vertex
+  </a>
+  
+    <nav class="md-nav" aria-label="Vertex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--finalstate" class="md-nav__link">
+    FinalState
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#future-developments" class="md-nav__link">
-    Future Developments
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--transition" class="md-nav__link">
+    Transition
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--pseudostatekind-enum" class="md-nav__link">
+    PseudostateKind (Enum)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--pseudostate" class="md-nav__link">
+    Pseudostate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--transitionkind-enum" class="md-nav__link">
+    TransitionKind (Enum)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--transitionpath" class="md-nav__link">
+    TransitionPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--concurrencykind-enum" class="md-nav__link">
+    ConcurrencyKind (Enum)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--event" class="md-nav__link">
+    Event
+  </a>
+  
+    <nav class="md-nav" aria-label="Event">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--anyevent" class="md-nav__link">
+    AnyEvent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--callevent" class="md-nav__link">
+    CallEvent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--timeevent" class="md-nav__link">
+    TimeEvent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--changeevent" class="md-nav__link">
+    ChangeEvent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--completionevent" class="md-nav__link">
+    CompletionEvent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--constraint" class="md-nav__link">
+    Constraint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--compositestate" class="md-nav__link">
+    CompositeState
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--state" class="md-nav__link">
+    State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--region" class="md-nav__link">
+    Region
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.elements--behavior-and-statemachine" class="md-nav__link">
+    Behavior and StateMachine
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1081,20 +1371,75 @@
 
   <h1>Overview</h1>
 
-<p>Stateforward is a comprehensive library designed to facilitate the creation and management of state machines and domain models across multiple programming languages, including Python, JavaScript, and Rust. With its modular architecture and extensive feature set, Stateforward aims to become the go-to solution for developers looking to implement complex stateful systems with ease and precision. Currently available for Python, the library plans to expand its offerings with robust Rust and JavaScript packages in the near future.</p>
-<h2 id="key-features">Key Features</h2>
-<ul>
-<li><strong>Intuitive Modeling</strong>: Define complex hierarchies, relationships, and behaviors using simple, declarative syntax.</li>
-<li><strong>Cross-Platform Support</strong>: Unified API across Python, JavaScript, and Rust, enabling consistent development experiences.</li>
-<li><strong>Asynchronous Support</strong>: First-class support for asynchronous operations in Python, making it suitable for IO-bound tasks.</li>
-<li><strong>Concurrency Control</strong>: Easily manage concurrency with support for sequential, threaded, multiprocessing, and asynchronous execution.</li>
-<li><strong>Event Handling</strong>: Robust event system that responds to a variety of event types, from time-based to custom triggers.</li>
-<li><strong>Behavioral Abstraction</strong>: Encapsulate state-specific behaviors within states, transitions, and actions.</li>
-<li><strong>Domain-Specific Modeling</strong>: Customize and extend the library for domain-specific applications, ensuring flexibility and adaptability.</li>
-</ul>
-<h2 id="future-developments">Future Developments</h2>
-<p>Looking ahead, Stateforward aims to launch packages that allow Rust and JavaScript developers to utilize its features seamlessly integrated into their respective ecosystems. This expansion will empower developers to model and run state machines with high performance and in a language-agnostic manner, promoting unified design patterns across different platforms.</p>
-<p>By bridging the gap between different programming languages, Stateforward will enable a broader spectrum of software developers to leverage the power of state machines in their applications—be it web development with JavaScript or systems programming with Rust.</p>
+<div class="doc doc-object doc-module">
+
+
+
+
+  <div class="doc doc-contents first">
+  
+      <p>In this document, we provide a comprehensive overview of the <code>stateforward.elements</code> module, part of the StateForward framework. The module defines the primary building blocks used to model state machines, which include vertices, states, transitions, and events. These constructs encapsulate the behavior, conditions, and structure of state-based systems.</p>
+<h3 id="stateforward.elements--elements">Elements</h3>
+<h4 id="stateforward.elements--vertex">Vertex</h4>
+<p>A base class for objects that represent the nodes within a state machine. It has <code>outgoing</code> and <code>incoming</code> collections for transitions, as well as a <code>container</code> which refers to the region it belongs to.</p>
+<h5 id="stateforward.elements--finalstate">FinalState</h5>
+<p>A special kind of vertex indicating a state that, once entered, signifies the completion of a process within a particular region of the state machine.</p>
+<h4 id="stateforward.elements--transition">Transition</h4>
+<p>Defines a pathway or a link between two vertices (<code>source</code> and <code>target</code>). Transitions can be governed by <code>events</code>, have an assigned <code>effect</code> (behavior), and be protected by a <code>guard</code> condition. Transitions also have a <code>kind</code> signifying their type (internal, local, external, or self) and a <code>path</code> describing the entry and exit states involved during the transition.</p>
+<h4 id="stateforward.elements--pseudostatekind-enum">PseudostateKind (Enum)</h4>
+<p>Enumerates the different kinds of special purpose states within a state machine, such as initial, choice, join, fork, and more.</p>
+<h4 id="stateforward.elements--pseudostate">Pseudostate</h4>
+<p>A specialized form of vertex representing various control nodes within a state machine, such as initial states or decision points. Its <code>kind</code> is determined by PseudostateKind.</p>
+<h4 id="stateforward.elements--transitionkind-enum">TransitionKind (Enum)</h4>
+<p>Enumerates different kinds of transitions, such as internal, local, external, and self-transitions.</p>
+<h4 id="stateforward.elements--transitionpath">TransitionPath</h4>
+<p>Represents the sequence of vertices one must enter (<code>enter</code>) and leave (<code>leave</code>) when performing a transition.</p>
+<h4 id="stateforward.elements--concurrencykind-enum">ConcurrencyKind (Enum)</h4>
+<p>Enumerates the different concurrency models that can be used, such as sequential, threaded, multiprocessing, and asynchronous.</p>
+<h4 id="stateforward.elements--event">Event</h4>
+<p>A base class for different types of events that can trigger transitions.</p>
+<h5 id="stateforward.elements--anyevent">AnyEvent</h5>
+<p>Represents a wildcard event that matches any occurring event.</p>
+<h5 id="stateforward.elements--callevent">CallEvent</h5>
+<p>Defines an event that represents the invocation of a callable, with potential <code>results</code> and an operation to execute (<code>operation</code>).</p>
+<h5 id="stateforward.elements--timeevent">TimeEvent</h5>
+<p>An event triggered based on time, with a <code>when</code> attribute specifying the timing.</p>
+<h5 id="stateforward.elements--changeevent">ChangeEvent</h5>
+<p>An event triggered by a change in the system's conditions.</p>
+<h5 id="stateforward.elements--completionevent">CompletionEvent</h5>
+<p>An event that indicates the completion of the activities within a state.</p>
+<h4 id="stateforward.elements--constraint">Constraint</h4>
+<p>Defines a conditional expression or constraint that can influence the behavior of a transition (<code>condition</code>).</p>
+<h4 id="stateforward.elements--compositestate">CompositeState</h4>
+<p>A base class for complex states that may contain other states (regions).</p>
+<h4 id="stateforward.elements--state">State</h4>
+<p>A simple or composite state within the state machine that can perform <code>entry</code>, <code>exit</code>, and <code>do_activity</code> behaviors. It may also contain <code>completion</code>, <code>deferred</code> events, and a reference to a <code>submachine</code>.</p>
+<h4 id="stateforward.elements--region">Region</h4>
+<p>Represents a 'container' for states inside composite states or state machines. Maintains a <code>subvertex</code> collection for the vertices it encloses and references its <code>initial</code> state.</p>
+<h4 id="stateforward.elements--behavior-and-statemachine">Behavior and StateMachine</h4>
+<p>Defines abstract bases for behaviors and state machines, enabling the modeling of more complex functional behaviors within the system.</p>
+<hr />
+<p>By exploring these elements, developers can model the states and transitions of their systems, defining exactly how their state machines should behave in response to events and conditions. Each class provides the necessary attributes and mechanisms to accomplish this, forming a foundational toolkit for state management.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
 
 
 
@@ -1139,10 +1484,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.top", "navigation.indexes", "navigation.expand", "search.highlight", "search.suggest", "toc.follow"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.top", "navigation.indexes", "navigation.expand", "search.highlight", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.81fa17fe.min.js"></script>
       
     
   </body>
