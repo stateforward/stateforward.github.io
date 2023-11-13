@@ -1,2 +1,12 @@
-.md-header  {
-  }
+.md-header {
+  background-color: black;
+  border-bottom: 1px solid #1a1919;
+}
+.md-main {
+  background-color: black;
+}
+
+.md-footer-meta {
+  background-color: black;
+  border-top: 1px solid #1a1919;
+}
