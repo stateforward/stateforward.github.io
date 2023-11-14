@@ -39,3 +39,6 @@
   background: black !important;
   padding: .6rem;
 }
+.md-header__topic {
+  display: none;
+}
