@@ -84,49 +84,52 @@
 @media only screen and (max-width: 1220px) {
   body {
       .md-sidebar {
-          border: none;
-          border-radius: none;
-          margin: 0;
-          padding: 0;
-          margin-top: 45px;
-          height: 100%;
-          width: 12rem;
-     }
- }
-  @media screen and (max-width: 76.2344em) {
-      [dir="ltr"] .md-sidebar--primary {
-          left: -12rem;
-     }
-      .md-nav--primary .md-nav__title ~ .md-nav__list {
-          background-color: black;
-          border-right: 1px solid #1a1919;
-     }
-      .md-nav--primary .md-nav__title[for="__drawer"] {
-          border-top: 1px solid #1a1919;
-          border-right: 1px solid #1a1919;
-     }
-      .md-nav--primary .md-nav__item--active > .md-nav__link {
-          color: #fff;
-     }
-      .md-nav--primary .md-nav__item--active > .md-nav__link:focus, .md-nav--primary .md-nav__item--active > .md-nav__link:hover {
-          color: #4b4c4e !important;
-     }
-      .md-nav__link[for]:focus, .md-nav__link[for]:hover, .md-nav__link[href]:focus, .md-nav__link[href]:hover {
-          color: #4b4c4e;
-          cursor: pointer;
-     }
-      .md-search-result__meta {
-          background-color: black;
-          color: white;
-     }
-      .md-search-result__list {
-          background: black;
-     }
-      .md-search-result mark {
-          color: #fff;
-     }
-      .md-search-result__more > summary > div {
-          color: #fff;
-     }
- }
+        border: none;
+        border-radius: none;
+        margin: 0;
+        padding: 0;
+        margin-top: 45px;
+        height: 100%;
+        width: 12rem;
+      }
+      
+}
+
+@media screen and (max-width: 76.2344em) {
+  [dir="ltr"] .md-sidebar--primary {
+    left: -12rem;
+  }
+  .md-nav--primary .md-nav__title ~ .md-nav__list {
+    background-color: black;
+    border-right: 1px solid #1a1919;
+  }
+  .md-nav--primary .md-nav__title[for="__drawer"] {
+    border-top: 1px solid #1a1919;
+    border-right: 1px solid #1a1919;
+  }
+  .md-nav--primary .md-nav__item--active > .md-nav__link {
+    color: #fff;
+  }
+  .md-nav--primary .md-nav__item--active > .md-nav__link:focus, .md-nav--primary .md-nav__item--active > .md-nav__link:hover {
+    color: #4b4c4e !important;
+  }
+  .md-nav__link[for]:focus, .md-nav__link[for]:hover, .md-nav__link[href]:focus, .md-nav__link[href]:hover {
+    color: #4b4c4e;
+    cursor: pointer;
+  }
+  
+
+.md-search-result__meta {
+  background-color: black;
+  color: white;
+}
+.md-search-result__list {
+  background: black;
+}
+.md-search-result mark {
+  color: #fff;
+}
+.md-search-result__more > summary > div {
+  color: #fff;
+}
 }
