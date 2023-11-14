@@ -2,6 +2,8 @@ site_name: "StateForward"
 watch: [ ../stateforward_python, docs ]
 
 theme:
+  font: 
+    text: Inter
   name: material
   logo: assets/logo.png
   features:
