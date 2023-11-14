@@ -10,3 +10,32 @@
   background-color: black;
   border-top: 1px solid #1a1919;
 }
+
+.md-nav--primary .md-nav__title {
+  background: none;
+  box-shadow: none;
+}
+
+.md-nav--secondary .md-nav__title {
+  background: none;
+  box-shadow: none;
+}
+
+.md-sidebar {
+  border: 1px solid #1a1919;
+  height: fit-content;
+  border-radius: 16px;
+  margin: 1rem;
+  padding: .6rem;
+}
+.md-sidebar {
+  scrollbar-color: #1a1919 #0000;
+}
+
+.md-sidebar__scrollwrap:focus-within, .md-sidebar__scrollwrap:hover {
+  scrollbar-color: #1a1919 #0000;
+}
+.md-nav__title {
+  background: black !important;
+  padding: .6rem;
+}
