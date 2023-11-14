@@ -1227,8 +1227,7 @@ properties and behavior specific to a given element to be set up.</p>
 
             <details class="quote">
               <summary>Source code in <code>stateforward/model/element.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">334</span>
-<span class="normal">335</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">335</span>
 <span class="normal">336</span>
 <span class="normal">337</span>
 <span class="normal">338</span>
@@ -1395,7 +1394,8 @@ properties and behavior specific to a given element to be set up.</p>
 <span class="normal">499</span>
 <span class="normal">500</span>
 <span class="normal">501</span>
-<span class="normal">502</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Element</span><span class="p">(</span><span class="n">ElementInterface</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="normal">502</span>
+<span class="normal">503</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Element</span><span class="p">(</span><span class="n">ElementInterface</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Element is the base class for all elements in the model.</span>
 
@@ -1622,8 +1622,7 @@ and setting up attributes.</p>
 
           <details class="quote">
             <summary>Source code in <code>stateforward/model/element.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">360</span>
-<span class="normal">361</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">361</span>
 <span class="normal">362</span>
 <span class="normal">363</span>
 <span class="normal">364</span>
@@ -1669,7 +1668,8 @@ and setting up attributes.</p>
 <span class="normal">404</span>
 <span class="normal">405</span>
 <span class="normal">406</span>
-<span class="normal">407</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span>
+<span class="normal">407</span>
+<span class="normal">408</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span>
     <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="s2">&quot;Element&quot;</span><span class="p">],</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">redefined_element</span><span class="p">:</span> <span class="s2">&quot;ElementType&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1847,8 +1847,7 @@ if it's not already defined in the <code>ElementInterface</code>.</p>
 
           <details class="quote">
             <summary>Source code in <code>stateforward/model/element.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">414</span>
-<span class="normal">415</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">415</span>
 <span class="normal">416</span>
 <span class="normal">417</span>
 <span class="normal">418</span>
@@ -1882,7 +1881,8 @@ if it's not already defined in the <code>ElementInterface</code>.</p>
 <span class="normal">446</span>
 <span class="normal">447</span>
 <span class="normal">448</span>
-<span class="normal">449</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="normal">449</span>
+<span class="normal">450</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">__define__</span><span class="p">(</span>
     <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="s2">&quot;Element&quot;</span><span class="p">],</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1961,8 +1961,7 @@ the call to <strong>init</strong> is returned instead.</p>
 
           <details class="quote">
             <summary>Source code in <code>stateforward/model/element.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">451</span>
-<span class="normal">452</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">452</span>
 <span class="normal">453</span>
 <span class="normal">454</span>
 <span class="normal">455</span>
@@ -2012,7 +2011,8 @@ the call to <strong>init</strong> is returned instead.</p>
 <span class="normal">499</span>
 <span class="normal">500</span>
 <span class="normal">501</span>
-<span class="normal">502</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="normal">502</span>
+<span class="normal">503</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span>
     <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="s2">&quot;Element&quot;</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Element&quot;</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="s2">&quot;Element&quot;</span><span class="p">]]:</span>
