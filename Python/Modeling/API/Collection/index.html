@@ -1406,7 +1406,7 @@ model, just like any other element. It adds sequential collection functionality.
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">owner</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_association</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="ow">and</span> <span class="n">element</span><span class="o">.</span><span class="n">owner</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">add_owned_element</span><span class="p">(</span><span class="n">new_collection</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
         <span class="n">set_attribute</span><span class="p">(</span><span class="n">new_collection</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">association</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">new_collection</span>

@@ -1513,7 +1513,8 @@
 <span class="normal">342</span>
 <span class="normal">343</span>
 <span class="normal">344</span>
-<span class="normal">345</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">StateMachinePreprocessor</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Preprocessor</span><span class="p">):</span>
+<span class="normal">345</span>
+<span class="normal">346</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">StateMachinePreprocessor</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Preprocessor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A preprocessor for state machines that ensures that various elements of the model are correctly processed.</span>
 
@@ -1764,7 +1765,8 @@
 
     <span class="k">def</span> <span class="nf">preprocess_call_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="s2">&quot;elements.CallEvent&quot;</span><span class="p">]):</span>
         <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
         <span class="nb">setattr</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="s2">&quot;__call__&quot;</span><span class="p">,</span> <span class="fm">__call__</span><span class="p">)</span>
 
