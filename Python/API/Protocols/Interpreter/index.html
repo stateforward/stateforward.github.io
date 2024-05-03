@@ -1,0 +1,3514 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Future/">
+      
+      
+        <link rel="next" href="../Logger/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
+    
+    
+      
+        <title>Interpreter - StateForward</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.4b4a2bd9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stateforward.protocols.interpreter--module-interpreter" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="StateForward" class="md-header__button md-logo" aria-label="StateForward" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            StateForward
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interpreter
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="StateForward" class="md-nav__button md-logo" aria-label="StateForward" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    StateForward
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Core
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Core/Decorators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Decorators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Core/Elements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Elements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Core/Functional/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functional
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Modelling
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Modelling/Association/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Association
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Modelling/Collection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Modelling/Decorators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Decorators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Modelling/Element/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Element
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Modelling/Model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Modelling/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Modelling/Preprocessor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preprocessor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Modelling/Validator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Validator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Modelling/Visitor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visitor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_3" id="__nav_2_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Protocols
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Protocols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Clock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Future/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Future
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Interpreter
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Interpreter
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter--module-interpreter" class="md-nav__link">
+    Module interpreter
+  </a>
+  
+    <nav class="md-nav" aria-label="Module interpreter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter--classes" class="md-nav__link">
+    Classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter--interpreter-protocol-methods" class="md-nav__link">
+    Interpreter Protocol Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter--attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter" class="md-nav__link">
+    Interpreter
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpreter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.is_active" class="md-nav__link">
+    is_active()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.pop" class="md-nav__link">
+    pop()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.push" class="md-nav__link">
+    push()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.run" class="md-nav__link">
+    run()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.send" class="md-nav__link">
+    send()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.start" class="md-nav__link">
+    start()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.step" class="md-nav__link">
+    step()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.terminate" class="md-nav__link">
+    terminate()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.wait" class="md-nav__link">
+    wait()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.InterpreterStep" class="md-nav__link">
+    InterpreterStep
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Logger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logger
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Queue
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_4" id="__nav_2_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    StateMachine
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            StateMachine
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Clock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Elements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Elements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Preprocessor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preprocessor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_4_5" id="__nav_2_3_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Interpreters
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Interpreters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Interpreters/Async%20Behavior%20Interpreter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Async Behavior Interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Interpreters/Async%20Interpreter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Async Interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Interpreters/Async%20StateMachine%20Interpreter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Async StateMachine Interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Examples/Complete%20StateMachine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Complete StateMachine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Examples/LightSwitch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LightSwitch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Examples/Microwave/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Microwave
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Examples/TrafficLight/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TrafficLight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter--module-interpreter" class="md-nav__link">
+    Module interpreter
+  </a>
+  
+    <nav class="md-nav" aria-label="Module interpreter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter--classes" class="md-nav__link">
+    Classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter--interpreter-protocol-methods" class="md-nav__link">
+    Interpreter Protocol Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter--attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter" class="md-nav__link">
+    Interpreter
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpreter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.is_active" class="md-nav__link">
+    is_active()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.pop" class="md-nav__link">
+    pop()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.push" class="md-nav__link">
+    push()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.run" class="md-nav__link">
+    run()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.send" class="md-nav__link">
+    send()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.start" class="md-nav__link">
+    start()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.step" class="md-nav__link">
+    step()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.terminate" class="md-nav__link">
+    terminate()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.Interpreter.wait" class="md-nav__link">
+    wait()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.protocols.interpreter.InterpreterStep" class="md-nav__link">
+    InterpreterStep
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Interpreter</h1>
+
+<div class="doc doc-object doc-module">
+
+
+
+
+  <div class="doc doc-contents first">
+  
+      <h3 id="stateforward.protocols.interpreter--module-interpreter">Module <code>interpreter</code></h3>
+<p>This module contains the implementation of the <code>Interpreter</code> protocol, which is responsible for processing state-forwarding models and handling their execution flow. It uses asynchronous I/O for its operations, leveraging Python's <code>asyncio</code> library. The module depends on several other components like <code>Queue</code>, <code>Clock</code>, and <code>Future</code> to manage the scheduling of tasks and the progression of time within the simulation.</p>
+<h4 id="stateforward.protocols.interpreter--classes">Classes</h4>
+<ul>
+<li>
+<p><code>InterpreterStep</code>: An <code>Enum</code> representing the state of a step within the <code>Interpreter</code>. Possible values are <code>complete</code>, <code>incomplete</code>, and <code>deferred</code>.</p>
+</li>
+<li>
+<p><code>Interpreter</code>: A protocol that defines the interface for an interpreter instance. These instances are responsible for orchestrating elements of the state-forwarding model. They manage a queue, a clock, a stack of futures, and a logging instance.</p>
+</li>
+</ul>
+<h4 id="stateforward.protocols.interpreter--interpreter-protocol-methods">Interpreter Protocol Methods</h4>
+<ul>
+<li>
+<p><code>__init__</code>: Constructor for the interpreter. It takes a <code>Queue</code> instance and an optional <code>logging.Logger</code> instance as parameters.</p>
+</li>
+<li>
+<p><code>send</code>: Takes an event of type <code>model.Element</code> and schedules it for processing, returning a <code>Future</code> representing the eventual result of processing this event.</p>
+</li>
+<li>
+<p><code>start</code>: Initiates the interpreter loop which can be provided through the <code>loop</code> parameter; if <code>None</code>, the default event loop is used.</p>
+</li>
+<li>
+<p><code>wait</code>: Waits on a collection of <code>tasks</code>, which can be either <code>asyncio.Task</code> or <code>asyncio.Future</code> objects. It accepts an optional <code>name</code> to identify the wait operation and a <code>return_when</code> strategy that governs when the wait should return.</p>
+</li>
+<li>
+<p><code>run</code>: An asynchronous method that runs the interpreter to completion.</p>
+</li>
+<li>
+<p><code>step</code>: An abstract asynchronous method that should be implemented to perform a single step of the interpreter's operation.</p>
+</li>
+<li>
+<p><code>is_active</code>: Checks whether the provided <code>elements</code> are active within the current state model context.</p>
+</li>
+<li>
+<p><code>push</code>: Associates an <code>element</code> with a <code>future</code> object, pushing it onto the interpreter's stack.</p>
+</li>
+<li>
+<p><code>pop</code>: Removes an <code>element</code> from the interpreter's stack, providing a <code>result</code> to the associated future.</p>
+</li>
+<li>
+<p><code>terminate</code>: Cleans up and terminates the interpreter's operation.</p>
+</li>
+</ul>
+<h4 id="stateforward.protocols.interpreter--attributes">Attributes</h4>
+<ul>
+<li><code>model</code>: An attribute of the generic type <code>T</code>, which is bound to <code>model.Model</code> and represents the model instance that the interpreter is operating on.</li>
+</ul>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+
+<h2 id="stateforward.protocols.interpreter.Interpreter" class="doc doc-heading">
+          <code>Interpreter</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="typing.Protocol">Protocol</span>[<span title="stateforward.protocols.interpreter.T">T</span>]</code></p>
+
+  
+      <p>A protocol class that defines the interface for an interpreter capable of handling events,
+managing an event loop, and interacting with a queue and a clock system.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>queue</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="stateforward.protocols.queue.Queue" href="../Queue/#stateforward.protocols.queue.Queue">Queue</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An instance of Queue where the interpreter manages scheduled events.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>clock</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="stateforward.protocols.clock.Clock" href="../Clock/#stateforward.protocols.clock.Clock">Clock</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An instance of Clock that provides timing functionality.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>stack</code></td>
+          <td>
+                <code>dict[<span title="stateforward.protocols.interpreter.Interpreter.model.Element">Element</span>, <a class="autorefs autorefs-internal" title="stateforward.protocols.future.Future" href="../Future/#stateforward.protocols.future.Future">Future</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A dictionary mapping model components to their corresponding futures.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>log</code></td>
+          <td>
+                <code><span title="logging.Logger">Logger</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A Logger instance where the interpreter can log messages.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Methods:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td><code>__init__</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Constructor that initializes the interpreter with a given queue and an optional logger.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>send</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sends an event to the interpreter for processing and returns a Future.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>start</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Initiates the event loop for the interpreter with an optional loop argument.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>wait</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Waits for the completion of the given tasks or futures and returns a collected Task.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>run</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Asynchronous method that starts running the interpreter event loop.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>step</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Asynchronous method that performs a single step in the interpreter processing.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>is_active</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Checks if any of the provided elements are currently active within the interpreter.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>push</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Associates an element with a future or task in the interpreter's stack.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>pop</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Removes an element from the stack and handles its corresponding result.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>terminate</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Ends the interpreter's execution and cleans up resources.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>model</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>A generic type placeholder for the model handled by the interpreter.</p>
+              </div>
+            </td>
+          </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Interpreter</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">Protocol</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A protocol class that defines the interface for an interpreter capable of handling events,</span>
+<span class="sd">    managing an event loop, and interacting with a queue and a clock system.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        queue:</span>
+<span class="sd">             An instance of Queue where the interpreter manages scheduled events.</span>
+<span class="sd">        clock:</span>
+<span class="sd">             An instance of Clock that provides timing functionality.</span>
+<span class="sd">        stack:</span>
+<span class="sd">             A dictionary mapping model components to their corresponding futures.</span>
+<span class="sd">        log:</span>
+<span class="sd">             A Logger instance where the interpreter can log messages.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__:</span>
+<span class="sd">             Constructor that initializes the interpreter with a given queue and an optional logger.</span>
+<span class="sd">        send:</span>
+<span class="sd">             Sends an event to the interpreter for processing and returns a Future.</span>
+<span class="sd">        start:</span>
+<span class="sd">             Initiates the event loop for the interpreter with an optional loop argument.</span>
+<span class="sd">        wait:</span>
+<span class="sd">             Waits for the completion of the given tasks or futures and returns a collected Task.</span>
+<span class="sd">        run:</span>
+<span class="sd">             Asynchronous method that starts running the interpreter event loop.</span>
+<span class="sd">        step:</span>
+<span class="sd">             Asynchronous method that performs a single step in the interpreter processing.</span>
+<span class="sd">        is_active:</span>
+<span class="sd">             Checks if any of the provided elements are currently active within the interpreter.</span>
+<span class="sd">        push:</span>
+<span class="sd">             Associates an element with a future or task in the interpreter&#39;s stack.</span>
+<span class="sd">        pop:</span>
+<span class="sd">             Removes an element from the stack and handles its corresponding result.</span>
+<span class="sd">        terminate:</span>
+<span class="sd">             Ends the interpreter&#39;s execution and cleans up resources.</span>
+<span class="sd">        model:</span>
+<span class="sd">             A generic type placeholder for the model handled by the interpreter.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">queue</span><span class="p">:</span> <span class="n">Queue</span>
+    <span class="n">clock</span><span class="p">:</span> <span class="n">Clock</span>
+    <span class="n">stack</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">Future</span><span class="p">]</span>
+    <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Queue</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the instance with a Queue and an optional Logger object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            queue (Queue):</span>
+<span class="sd">                 The queue to be used by the instance for storing or processing tasks.</span>
+<span class="sd">            log (logging.Logger, optional):</span>
+<span class="sd">                 The logger to be used for logging information, warnings, errors, etc. Defaults to None, in which case no logging will be performed.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Future</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an event to be processed asynchronously.</span>
+<span class="sd">        This method accepts an event object, wraps it in a Future, and schedules it for asynchronous processing.</span>
+<span class="sd">        The method returns a Future object that can be used to retrieve the result of the event processing at a later time.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (model.Element):</span>
+<span class="sd">                 The event to send for processing.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Future:</span>
+<span class="sd">                 The future object representing the asynchronous operation of the event processing.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">loop</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">AbstractEventLoop</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts the asynchronous event loop for the instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            loop (asyncio.AbstractEventLoop, optional):</span>
+<span class="sd">                 The event loop to run the instance on. If None is provided, the default event loop is used.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">tasks</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">],</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">return_when</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_COMPLETED</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Waits for the completion of given tasks or futures until a condition is met.</span>
+<span class="sd">        This method is used to asynchronously wait for either any or all of the specified tasks or futures to complete, depending on the `return_when` parameter. It can be used to orchestrate the execution of different asynchronous operations in a non-blocking manner.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *tasks (typing.Union[asyncio.Task, asyncio.Future]):</span>
+<span class="sd">                 An unpacked tuple of tasks or futures.</span>
+<span class="sd">                These are the asynchronous operations that `wait` will wait on.</span>
+<span class="sd">            name (str, optional):</span>
+<span class="sd">                 A name for the group of tasks being waited on. This name is not</span>
+<span class="sd">                directly used by the `wait` function but can be useful for logging and debugging purposes.</span>
+<span class="sd">            return_when (str):</span>
+<span class="sd">                 A string that specifies when the function should return. The default</span>
+<span class="sd">                value is `asyncio.FIRST_COMPLETED`, which means the function will return as soon as any task or future is done.</span>
+<span class="sd">                Other possible values are `asyncio.FIRST_EXCEPTION`, which returns when any task or future raises an exception,</span>
+<span class="sd">                and `asyncio.ALL_COMPLETED`, which returns only when all tasks or futures are completed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            asyncio.Task:</span>
+<span class="sd">                 A single asyncio.Task instance that can be awaited. This task completes when</span>
+<span class="sd">                the condition specified in `return_when` is met.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Asynchronously executes the function&#39;s main logic.</span>
+<span class="sd">        This function is designed to be called within an asynchronous context. It runs</span>
+<span class="sd">        the primary task or series of tasks that the class instance is responsible</span>
+<span class="sd">        for managing. As it is an async function, it should be awaited when called</span>
+<span class="sd">        to ensure proper execution and handling of the event loop.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None:</span>
+<span class="sd">                 This function does not return any value.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs an asynchronous step operation for the object. This function is intended to be overridden by subclasses to implement specific asynchronous behavior. The default implementation does nothing and is meant to be a placeholder.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">elements</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines if the given elements are active.</span>
+<span class="sd">        This method checks if the specified elements within the model are currently active. &#39;Active&#39; in this context refers to the</span>
+<span class="sd">        elements being in a state where they are in use or in operation within the model. Each element provided as an argument</span>
+<span class="sd">        to the function is checked, and the function returns True only if all elements are active, otherwise False.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *elements (model.Element):</span>
+<span class="sd">                 Variable number of Element objects to check for active status.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool:</span>
+<span class="sd">                 True if all elements are active, False otherwise.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">future</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Future</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a new element to a collection with an optional future or task associated with it.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element (model.Element):</span>
+<span class="sd">                 The element to be added to the collection.</span>
+<span class="sd">            future (typing.Union[Future, asyncio.Task]):</span>
+<span class="sd">                 A future or task that is</span>
+<span class="sd">                associated with the element being added. This is optional and can be</span>
+<span class="sd">                used to track the completion or result of an asynchronous operation</span>
+<span class="sd">                related to the element.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError:</span>
+<span class="sd">                 If the provided future is neither a Future nor an asyncio.Task instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pops an element from the given structure and returns the result.</span>
+<span class="sd">        This method is designed to remove the specified element from the structure it is called upon,</span>
+<span class="sd">        and optionally returns the result of this operation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element (model.Element):</span>
+<span class="sd">                 The element to remove from the structure.</span>
+<span class="sd">            result (typing.Any):</span>
+<span class="sd">                 The result to return after the element has been popped.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            typing.Any:</span>
+<span class="sd">                 The specified return result after the popping operation.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Terminates the current process or operation.</span>
+<span class="sd">        This method provides the functionality to cease the operation for the associated object. It is meant to be implemented as a cleanup action to safely shut down or close resources such as file handlers, network connections, or database connections before the termination of the process.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotImplementedError:</span>
+<span class="sd">                 If the method has not been implemented by the subclass.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="n">model</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.protocols.interpreter.Interpreter.__init__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>queue</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="stateforward.protocols.queue.Queue" href="../Queue/#stateforward.protocols.queue.Queue">Queue</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The queue to be used by the instance for storing or processing tasks.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>log</code></td>
+          <td>
+                <code><span title="logging.Logger">Logger</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The logger to be used for logging information, warnings, errors, etc. Defaults to None, in which case no logging will be performed.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Queue</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes the instance with a Queue and an optional Logger object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        queue (Queue):</span>
+<span class="sd">             The queue to be used by the instance for storing or processing tasks.</span>
+<span class="sd">        log (logging.Logger, optional):</span>
+<span class="sd">             The logger to be used for logging information, warnings, errors, etc. Defaults to None, in which case no logging will be performed.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.protocols.interpreter.Interpreter.is_active" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">is_active</span><span class="p">(</span><span class="o">*</span><span class="n">elements</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Determines if the given elements are active.
+This method checks if the specified elements within the model are currently active. 'Active' in this context refers to the
+elements being in a state where they are in use or in operation within the model. Each element provided as an argument
+to the function is checked, and the function returns True only if all elements are active, otherwise False.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>*elements</code></td>
+          <td>
+                <code><span title="stateforward.protocols.interpreter.Interpreter.model.Element">Element</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Variable number of Element objects to check for active status.</p>
+            </div>
+          </td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>bool</code></td>          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>True if all elements are active, False otherwise.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">elements</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determines if the given elements are active.</span>
+<span class="sd">    This method checks if the specified elements within the model are currently active. &#39;Active&#39; in this context refers to the</span>
+<span class="sd">    elements being in a state where they are in use or in operation within the model. Each element provided as an argument</span>
+<span class="sd">    to the function is checked, and the function returns True only if all elements are active, otherwise False.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        *elements (model.Element):</span>
+<span class="sd">             Variable number of Element objects to check for active status.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool:</span>
+<span class="sd">             True if all elements are active, False otherwise.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.protocols.interpreter.Interpreter.pop" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">pop</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Pops an element from the given structure and returns the result.
+This method is designed to remove the specified element from the structure it is called upon,
+and optionally returns the result of this operation.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>element</code></td>
+          <td>
+                <code><span title="stateforward.protocols.interpreter.Interpreter.model.Element">Element</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The element to remove from the structure.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>result</code></td>
+          <td>
+                <code><span title="typing.Any">Any</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The result to return after the element has been popped.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>typing.Any:
+ The specified return result after the popping operation.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pops an element from the given structure and returns the result.</span>
+<span class="sd">    This method is designed to remove the specified element from the structure it is called upon,</span>
+<span class="sd">    and optionally returns the result of this operation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        element (model.Element):</span>
+<span class="sd">             The element to remove from the structure.</span>
+<span class="sd">        result (typing.Any):</span>
+<span class="sd">             The result to return after the element has been popped.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        typing.Any:</span>
+<span class="sd">             The specified return result after the popping operation.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.protocols.interpreter.Interpreter.push" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">push</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Adds a new element to a collection with an optional future or task associated with it.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>element</code></td>
+          <td>
+                <code><span title="stateforward.protocols.interpreter.Interpreter.model.Element">Element</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The element to be added to the collection.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>future</code></td>
+          <td>
+                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="stateforward.protocols.future.Future" href="../Future/#stateforward.protocols.future.Future">Future</a>, <span title="asyncio.Task">Task</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A future or task that is
+associated with the element being added. This is optional and can be
+used to track the completion or result of an asynchronous operation
+related to the element.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>TypeError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If the provided future is neither a Future nor an asyncio.Task instance.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">future</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Future</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds a new element to a collection with an optional future or task associated with it.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        element (model.Element):</span>
+<span class="sd">             The element to be added to the collection.</span>
+<span class="sd">        future (typing.Union[Future, asyncio.Task]):</span>
+<span class="sd">             A future or task that is</span>
+<span class="sd">            associated with the element being added. This is optional and can be</span>
+<span class="sd">            used to track the completion or result of an asynchronous operation</span>
+<span class="sd">            related to the element.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError:</span>
+<span class="sd">             If the provided future is neither a Future nor an asyncio.Task instance.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.protocols.interpreter.Interpreter.run" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">run</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Asynchronously executes the function's main logic.
+This function is designed to be called within an asynchronous context. It runs
+the primary task or series of tasks that the class instance is responsible
+for managing. As it is an async function, it should be awaited when called
+to ensure proper execution and handling of the event loop.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>None</code></td>          <td>
+                <code>None</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>This function does not return any value.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Asynchronously executes the function&#39;s main logic.</span>
+<span class="sd">    This function is designed to be called within an asynchronous context. It runs</span>
+<span class="sd">    the primary task or series of tasks that the class instance is responsible</span>
+<span class="sd">    for managing. As it is an async function, it should be awaited when called</span>
+<span class="sd">    to ensure proper execution and handling of the event loop.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None:</span>
+<span class="sd">             This function does not return any value.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.protocols.interpreter.Interpreter.send" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">send</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sends an event to be processed asynchronously.
+This method accepts an event object, wraps it in a Future, and schedules it for asynchronous processing.
+The method returns a Future object that can be used to retrieve the result of the event processing at a later time.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>event</code></td>
+          <td>
+                <code><span title="stateforward.protocols.interpreter.Interpreter.model.Element">Element</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The event to send for processing.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>Future</code></td>          <td>
+                <code><a class="autorefs autorefs-internal" title="stateforward.protocols.future.Future" href="../Future/#stateforward.protocols.future.Future">Future</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The future object representing the asynchronous operation of the event processing.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Future</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sends an event to be processed asynchronously.</span>
+<span class="sd">    This method accepts an event object, wraps it in a Future, and schedules it for asynchronous processing.</span>
+<span class="sd">    The method returns a Future object that can be used to retrieve the result of the event processing at a later time.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        event (model.Element):</span>
+<span class="sd">             The event to send for processing.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Future:</span>
+<span class="sd">             The future object representing the asynchronous operation of the event processing.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.protocols.interpreter.Interpreter.start" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">start</span><span class="p">(</span><span class="n">loop</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Starts the asynchronous event loop for the instance.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>loop</code></td>
+          <td>
+                <code><span title="asyncio.AbstractEventLoop">AbstractEventLoop</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The event loop to run the instance on. If None is provided, the default event loop is used.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">loop</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">AbstractEventLoop</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Starts the asynchronous event loop for the instance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        loop (asyncio.AbstractEventLoop, optional):</span>
+<span class="sd">             The event loop to run the instance on. If None is provided, the default event loop is used.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.protocols.interpreter.Interpreter.step" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">step</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Performs an asynchronous step operation for the object. This function is intended to be overridden by subclasses to implement specific asynchronous behavior. The default implementation does nothing and is meant to be a placeholder.</p>
+<p>Returns:</p>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs an asynchronous step operation for the object. This function is intended to be overridden by subclasses to implement specific asynchronous behavior. The default implementation does nothing and is meant to be a placeholder.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.protocols.interpreter.Interpreter.terminate" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">terminate</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Terminates the current process or operation.
+This method provides the functionality to cease the operation for the associated object. It is meant to be implemented as a cleanup action to safely shut down or close resources such as file handlers, network connections, or database connections before the termination of the process.</p>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>NotImplementedError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If the method has not been implemented by the subclass.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Terminates the current process or operation.</span>
+<span class="sd">    This method provides the functionality to cease the operation for the associated object. It is meant to be implemented as a cleanup action to safely shut down or close resources such as file handlers, network connections, or database connections before the termination of the process.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        NotImplementedError:</span>
+<span class="sd">             If the method has not been implemented by the subclass.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.protocols.interpreter.Interpreter.wait" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">wait</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_COMPLETED</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Waits for the completion of given tasks or futures until a condition is met.
+This method is used to asynchronously wait for either any or all of the specified tasks or futures to complete, depending on the <code>return_when</code> parameter. It can be used to orchestrate the execution of different asynchronous operations in a non-blocking manner.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>*tasks</code></td>
+          <td>
+                <code><span title="typing.Union">Union</span>[<span title="asyncio.Task">Task</span>, <span title="asyncio.Future">Future</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An unpacked tuple of tasks or futures.
+These are the asynchronous operations that <code>wait</code> will wait on.</p>
+            </div>
+          </td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A name for the group of tasks being waited on. This name is not
+directly used by the <code>wait</code> function but can be useful for logging and debugging purposes.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>return_when</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A string that specifies when the function should return. The default
+value is <code>asyncio.FIRST_COMPLETED</code>, which means the function will return as soon as any task or future is done.
+Other possible values are <code>asyncio.FIRST_EXCEPTION</code>, which returns when any task or future raises an exception,
+and <code>asyncio.ALL_COMPLETED</code>, which returns only when all tasks or futures are completed.</p>
+            </div>
+          </td>
+          <td>
+                <code><span title="asyncio.FIRST_COMPLETED">FIRST_COMPLETED</span></code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="asyncio.Task">Task</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>asyncio.Task:
+ A single asyncio.Task instance that can be awaited. This task completes when
+the condition specified in <code>return_when</code> is met.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">wait</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">tasks</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">],</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">return_when</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_COMPLETED</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Waits for the completion of given tasks or futures until a condition is met.</span>
+<span class="sd">    This method is used to asynchronously wait for either any or all of the specified tasks or futures to complete, depending on the `return_when` parameter. It can be used to orchestrate the execution of different asynchronous operations in a non-blocking manner.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        *tasks (typing.Union[asyncio.Task, asyncio.Future]):</span>
+<span class="sd">             An unpacked tuple of tasks or futures.</span>
+<span class="sd">            These are the asynchronous operations that `wait` will wait on.</span>
+<span class="sd">        name (str, optional):</span>
+<span class="sd">             A name for the group of tasks being waited on. This name is not</span>
+<span class="sd">            directly used by the `wait` function but can be useful for logging and debugging purposes.</span>
+<span class="sd">        return_when (str):</span>
+<span class="sd">             A string that specifies when the function should return. The default</span>
+<span class="sd">            value is `asyncio.FIRST_COMPLETED`, which means the function will return as soon as any task or future is done.</span>
+<span class="sd">            Other possible values are `asyncio.FIRST_EXCEPTION`, which returns when any task or future raises an exception,</span>
+<span class="sd">            and `asyncio.ALL_COMPLETED`, which returns only when all tasks or futures are completed.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        asyncio.Task:</span>
+<span class="sd">             A single asyncio.Task instance that can be awaited. This task completes when</span>
+<span class="sd">            the condition specified in `return_when` is met.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+
+<h2 id="stateforward.protocols.interpreter.InterpreterStep" class="doc doc-heading">
+          <code>InterpreterStep</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="enum.Enum">Enum</span></code></p>
+
+  
+      <p>An enumeration to represent the possible states of an interpreter step.
+This enum classifies the status of a step within an interpreter's execution process. Each member of the enumeration represents a distinct state that indicates the completeness of the current step being processed.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>complete</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A member indicating the interpreter step has been successfully completed without any pending actions.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>incomplete</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A member indicating the interpreter step is not yet finished and may require further processing.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>deferred</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A member indicating the interpreter step's execution has been postponed and will be revisited later.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>stateforward/protocols/interpreter.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InterpreterStep</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An enumeration to represent the possible states of an interpreter step.</span>
+<span class="sd">    This enum classifies the status of a step within an interpreter&#39;s execution process. Each member of the enumeration represents a distinct state that indicates the completeness of the current step being processed.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        complete (str):</span>
+<span class="sd">             A member indicating the interpreter step has been successfully completed without any pending actions.</span>
+<span class="sd">        incomplete (str):</span>
+<span class="sd">             A member indicating the interpreter step is not yet finished and may require further processing.</span>
+<span class="sd">        deferred (str):</span>
+<span class="sd">             A member indicating the interpreter step&#39;s execution has been postponed and will be revisited later.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">complete</span> <span class="o">=</span> <span class="s2">&quot;complete&quot;</span>
+    <span class="n">incomplete</span> <span class="o">=</span> <span class="s2">&quot;incomplete&quot;</span>
+    <span class="n">deferred</span> <span class="o">=</span> <span class="s2">&quot;deferred&quot;</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.top", "navigation.indexes", "navigation.expand", "search.highlight", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3623 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Association/">
+      
+      
+        <link rel="next" href="../Decorators/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
+    
+    
+      
+        <title>Collection - StateForward</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.4b4a2bd9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stateforward.model.collection.Collection" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="StateForward" class="md-header__button md-logo" aria-label="StateForward" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            StateForward
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Collection
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="StateForward" class="md-nav__button md-logo" aria-label="StateForward" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    StateForward
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Core
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Core/Decorators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Decorators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Core/Elements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Elements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Core/Functional/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functional
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Modelling
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Association/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Association
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Collection
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Collection
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.Collection" class="md-nav__link">
+    Collection
+  </a>
+  
+    <nav class="md-nav" aria-label="Collection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.Collection.__class_getitem__" class="md-nav__link">
+    __class_getitem__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.Collection.__getitem__" class="md-nav__link">
+    __getitem__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.Collection.__iter__" class="md-nav__link">
+    __iter__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.Collection.__len__" class="md-nav__link">
+    __len__()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.CollectionMetaclass" class="md-nav__link">
+    CollectionMetaclass
+  </a>
+  
+    <nav class="md-nav" aria-label="CollectionMetaclass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.CollectionMetaclass.__iter__" class="md-nav__link">
+    __iter__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.CollectionMetaclass.__len__" class="md-nav__link">
+    __len__()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.is_collection" class="md-nav__link">
+    is_collection()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.collection" class="md-nav__link">
+    collection()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.iter_collection" class="md-nav__link">
+    iter_collection()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.sort_collection" class="md-nav__link">
+    sort_collection()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.extend_collection" class="md-nav__link">
+    extend_collection()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Decorators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Decorators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Element/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Element
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Preprocessor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preprocessor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Validator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Validator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Visitor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visitor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_3" id="__nav_2_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Protocols
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Protocols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Protocols/Clock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Protocols/Future/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Future
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Protocols/Interpreter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Protocols/Logger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logger
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Protocols/Queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Queue
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_4" id="__nav_2_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    StateMachine
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            StateMachine
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Clock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Elements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Elements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Preprocessor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preprocessor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_4_5" id="__nav_2_3_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Interpreters
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Interpreters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Interpreters/Async%20Behavior%20Interpreter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Async Behavior Interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Interpreters/Async%20Interpreter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Async Interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../StateMachine/Interpreters/Async%20StateMachine%20Interpreter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Async StateMachine Interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Examples/Complete%20StateMachine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Complete StateMachine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Examples/LightSwitch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LightSwitch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Examples/Microwave/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Microwave
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Examples/TrafficLight/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TrafficLight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.Collection" class="md-nav__link">
+    Collection
+  </a>
+  
+    <nav class="md-nav" aria-label="Collection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.Collection.__class_getitem__" class="md-nav__link">
+    __class_getitem__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.Collection.__getitem__" class="md-nav__link">
+    __getitem__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.Collection.__iter__" class="md-nav__link">
+    __iter__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.Collection.__len__" class="md-nav__link">
+    __len__()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.CollectionMetaclass" class="md-nav__link">
+    CollectionMetaclass
+  </a>
+  
+    <nav class="md-nav" aria-label="CollectionMetaclass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.CollectionMetaclass.__iter__" class="md-nav__link">
+    __iter__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.model.collection.CollectionMetaclass.__len__" class="md-nav__link">
+    __len__()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.is_collection" class="md-nav__link">
+    is_collection()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.collection" class="md-nav__link">
+    collection()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.iter_collection" class="md-nav__link">
+    iter_collection()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.sort_collection" class="md-nav__link">
+    sort_collection()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.model.collection.extend_collection" class="md-nav__link">
+    extend_collection()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Collection</h1>
+
+<div class="doc doc-object doc-module">
+
+
+
+
+  <div class="doc doc-contents first">
+  
+      <p>The collection module is designed to manage collections of <code>Element</code> objects, providing a suite of functions and a base class to allow for the manipulation and iteration of these collections within an object-oriented framework. The module offers functionality to check if a given value is a collection, create collections, iterate over them, sort them, and extend them with new elements. It also defines the custom metaclass <code>CollectionMetaclass</code> and the <code>Collection</code> base class which are the core components that empower the structured management of collection elements.</p>
+<p>Key Components:</p>
+<ol>
+<li>
+<p><code>is_collection(value: typing.Any) -&gt; bool</code>: A function that checks if the passed value is an instance of a collection.</p>
+</li>
+<li>
+<p><code>collection(*elements: ElementType) -&gt; type['Collection']</code>: A factory function that creates a new collection type from the given elements and returns it.</p>
+</li>
+<li>
+<p><code>iter_collection(element: typing.Union[type['Collection[T]'], 'Collection[T]']) -&gt; typing.Generator[T, None, None]</code>: Creates a generator to iterate over the elements of the collection.</p>
+</li>
+<li>
+<p><code>sort_collection(element: type['Collection'], key=None, reverse=False)</code>: Sorts the elements of a collection in-place according to the specified key function and order.</p>
+</li>
+<li>
+<p><code>extend_collection(collection_element: 'CollectionType', *elements: typing.Collection[ElementType])</code>: Extends the given collection with additional elements.</p>
+</li>
+<li>
+<p><code>CollectionType</code>: A type alias that can represent either a 'Collection' class or instance.</p>
+</li>
+<li>
+<p><code>CollectionMetaclass(type)</code>: A metaclass for creating 'Collection' classes with additional class-level functionality like yielding its length and providing an iterator.</p>
+</li>
+<li>
+<p><code>Collection(Element[T], metaclass=CollectionMetaclass)</code>: A base class representing a collection of elements, which can be iterated over, indexed, and extended while retaining the ordering of elements.</p>
+</li>
+</ol>
+<p>Functionality like retrieving items from a collection, checking the number of items, or iterating through every element is encapsulated within the 'Collection' class and its associated metaclass, making it a versatile tool for managing groups of objects that inherit from Element. Overall, this module aims to provide a robust framework for handling collections with ease and efficiency.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+
+<h2 id="stateforward.model.collection.Collection" class="doc doc-heading">
+          <code>Collection</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="stateforward.model.element.Element" href="../Element/#stateforward.model.element.Element">Element</a>[<span title="stateforward.model.collection.T">T</span>]</code></p>
+
+  
+      <p>A generic collection class that acts as an iterable container for elements of type T.
+This class inherits from the 'Element' class with a generic type parameter 'T' and uses a 'CollectionMetaclass'. It supports basic
+sequence protocols such as length retrieval, iteration, and item access by index. The generic type 'T' specifies the type
+of elements stored in the collection.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>T</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A generic type parameter specifying the type of elements in the collection.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Methods:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td><code>__len__</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Returns the number of elements in the collection as per the class's 'length' attribute.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>__iter__</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Returns an iterator for the elements in the collection, making the class iterable.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>__getitem__</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>int) -&gt; T:
+Retrieves an element from the collection by its integer index.</p>
+              </div>
+            </td>
+          </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>index</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The index of the element to retrieve.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>T</code></td>          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The element at the specified index in the collection.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td><code>__class_getitem__</code></td>          <td>
+                <code>(cls, item)</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A class method that allows access to class attributes using subscript notion if the attribute name is numeric.
+If the attribute name is not numeric, defers to the superclass's '<strong>class_getitem</strong>' method.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>item</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The attribute name or a numeric string representing the attribute to access.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>Returns:</p>
+
+            <details class="quote">
+              <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Collection</span><span class="p">(</span><span class="n">Element</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">CollectionMetaclass</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A generic collection class that acts as an iterable container for elements of type T.</span>
+<span class="sd">    This class inherits from the &#39;Element&#39; class with a generic type parameter &#39;T&#39; and uses a &#39;CollectionMetaclass&#39;. It supports basic</span>
+<span class="sd">    sequence protocols such as length retrieval, iteration, and item access by index. The generic type &#39;T&#39; specifies the type</span>
+<span class="sd">    of elements stored in the collection.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        T:</span>
+<span class="sd">             A generic type parameter specifying the type of elements in the collection.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __len__(self) -&gt; int:</span>
+<span class="sd">            Returns the number of elements in the collection as per the class&#39;s &#39;length&#39; attribute.</span>
+<span class="sd">        __iter__(self) -&gt; typing.Iterator[T]:</span>
+<span class="sd">            Returns an iterator for the elements in the collection, making the class iterable.</span>
+<span class="sd">        __getitem__(self, index:</span>
+<span class="sd">             int) -&gt; T:</span>
+<span class="sd">            Retrieves an element from the collection by its integer index.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        index (int):</span>
+<span class="sd">             The index of the element to retrieve.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        T:</span>
+<span class="sd">             The element at the specified index in the collection.</span>
+<span class="sd">        __class_getitem__(cls, item):</span>
+<span class="sd">            A class method that allows access to class attributes using subscript notion if the attribute name is numeric.</span>
+<span class="sd">            If the attribute name is not numeric, defers to the superclass&#39;s &#39;__class_getitem__&#39; method.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        item:</span>
+<span class="sd">             The attribute name or a numeric string representing the attribute to access.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Returns the length of an object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int:</span>
+<span class="sd">                 The length of the object.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">length</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterates over a collection instance.</span>
+<span class="sd">        This method will return an iterator for the items in the collection by utilizing the `iter_collection` function.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            typing.Iterator[T]:</span>
+<span class="sd">                 An iterator over the items in the collection.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">iter_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        __getitem__ method</span>
+<span class="sd">        This method overrides the default item-access ([] operator) behavior.</span>
+<span class="sd">        The method allows accessing elements of the instance using an integer index like an array. It takes an</span>
+<span class="sd">        integer index and returns the attribute of the instance corresponding to that index, converted to a string.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index (int):</span>
+<span class="sd">                 An integer representing the index of the desired attribute within the instance.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            T:</span>
+<span class="sd">                 The value of the attribute corresponding to the passed index cast to type T.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            AttributeError:</span>
+<span class="sd">                 If the attribute corresponding to the provided index does not exist.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__class_getitem__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the attribute of the class based on the provided `item`. If `item` can be converted to a number (numeric string), it tries to access the attribute with the numerical name, otherwise, it delegates the lookup to the superclass&#39;s `__class_getitem__` method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cls (type):</span>
+<span class="sd">                 The class on which the method is being called.</span>
+<span class="sd">            item (Any):</span>
+<span class="sd">                 The identifier for the class attribute, which could be a label or a numeric string that represents an integer attribute name.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Any:</span>
+<span class="sd">                 The value of the attribute corresponding to `item` if it&#39;s a numeric string, otherwise the result from the superclass&#39;s `__class_getitem__`.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            AttributeError:</span>
+<span class="sd">                 If an attribute with the given numeric string as a name does not exist within the class.</span>
+<span class="sd">            TypeError:</span>
+<span class="sd">                 If the superclass&#39;s `__class_getitem__` does not support handling the provided `item`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">():</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__class_getitem__</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.model.collection.Collection.__class_getitem__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">__class_getitem__</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Gets the attribute of the class based on the provided <code>item</code>. If <code>item</code> can be converted to a number (numeric string), it tries to access the attribute with the numerical name, otherwise, it delegates the lookup to the superclass's <code>__class_getitem__</code> method.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>cls</code></td>
+          <td>
+                <code>type</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The class on which the method is being called.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>item</code></td>
+          <td>
+                <code><span title="stateforward.core.Any">Any</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The identifier for the class attribute, which could be a label or a numeric string that represents an integer attribute name.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>Any</code></td>          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The value of the attribute corresponding to <code>item</code> if it's a numeric string, otherwise the result from the superclass's <code>__class_getitem__</code>.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>AttributeError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If an attribute with the given numeric string as a name does not exist within the class.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+                <code>TypeError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If the superclass's <code>__class_getitem__</code> does not support handling the provided <code>item</code>.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__class_getitem__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the attribute of the class based on the provided `item`. If `item` can be converted to a number (numeric string), it tries to access the attribute with the numerical name, otherwise, it delegates the lookup to the superclass&#39;s `__class_getitem__` method.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cls (type):</span>
+<span class="sd">             The class on which the method is being called.</span>
+<span class="sd">        item (Any):</span>
+<span class="sd">             The identifier for the class attribute, which could be a label or a numeric string that represents an integer attribute name.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Any:</span>
+<span class="sd">             The value of the attribute corresponding to `item` if it&#39;s a numeric string, otherwise the result from the superclass&#39;s `__class_getitem__`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        AttributeError:</span>
+<span class="sd">             If an attribute with the given numeric string as a name does not exist within the class.</span>
+<span class="sd">        TypeError:</span>
+<span class="sd">             If the superclass&#39;s `__class_getitem__` does not support handling the provided `item`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">():</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__class_getitem__</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.model.collection.Collection.__getitem__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p><strong>getitem</strong> method
+This method overrides the default item-access ([] operator) behavior.
+The method allows accessing elements of the instance using an integer index like an array. It takes an
+integer index and returns the attribute of the instance corresponding to that index, converted to a string.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>index</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An integer representing the index of the desired attribute within the instance.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>T</code></td>          <td>
+                <code><span title="stateforward.model.collection.T">T</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The value of the attribute corresponding to the passed index cast to type T.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>AttributeError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If the attribute corresponding to the provided index does not exist.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    __getitem__ method</span>
+<span class="sd">    This method overrides the default item-access ([] operator) behavior.</span>
+<span class="sd">    The method allows accessing elements of the instance using an integer index like an array. It takes an</span>
+<span class="sd">    integer index and returns the attribute of the instance corresponding to that index, converted to a string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        index (int):</span>
+<span class="sd">             An integer representing the index of the desired attribute within the instance.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        T:</span>
+<span class="sd">             The value of the attribute corresponding to the passed index cast to type T.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        AttributeError:</span>
+<span class="sd">             If the attribute corresponding to the provided index does not exist.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.model.collection.Collection.__iter__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__iter__</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Iterates over a collection instance.
+This method will return an iterator for the items in the collection by utilizing the <code>iter_collection</code> function.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Iterator">Iterator</span>[<span title="stateforward.model.collection.T">T</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>typing.Iterator[T]:
+ An iterator over the items in the collection.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Iterates over a collection instance.</span>
+<span class="sd">    This method will return an iterator for the items in the collection by utilizing the `iter_collection` function.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        typing.Iterator[T]:</span>
+<span class="sd">             An iterator over the items in the collection.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">iter_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.model.collection.Collection.__len__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__len__</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns the length of an object.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>int</code></td>          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The length of the object.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns the length of an object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int:</span>
+<span class="sd">             The length of the object.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">length</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+
+<h2 id="stateforward.model.collection.CollectionMetaclass" class="doc doc-heading">
+          <code>CollectionMetaclass</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>type</code></p>
+
+  
+      <p>A metaclass for creating collection types with a defined length.
+This metaclass allows for the creation of collection classes which support
+the len() function and iteration protocol. It provides a class-level
+attribute 'length' to denote the size of the collection, which is returned
+when <strong>len</strong>() is called. It also makes the collection class itself iterable
+via the <strong>iter</strong>() method, which is expected to be defined by instances of
+collection classes using this metaclass.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>length</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Class-level attribute specifying the number of elements
+in the collection.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Methods:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td><code>__len__</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Returns the length of the collection class.</p>
+              </div>
+            </td>
+          </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>int</code></td>          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The number of elements in the collection.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+<td></td>          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p><strong>iter</strong>(cls) -&gt; typing.Iterator[T]:
+Should return an iterator over the elements of the collection class.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>typing.Iterator[T]:
+ An iterator over the collection elements.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CollectionMetaclass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A metaclass for creating collection types with a defined length.</span>
+<span class="sd">    This metaclass allows for the creation of collection classes which support</span>
+<span class="sd">    the len() function and iteration protocol. It provides a class-level</span>
+<span class="sd">    attribute &#39;length&#39; to denote the size of the collection, which is returned</span>
+<span class="sd">    when __len__() is called. It also makes the collection class itself iterable</span>
+<span class="sd">    via the __iter__() method, which is expected to be defined by instances of</span>
+<span class="sd">    collection classes using this metaclass.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        length (int):</span>
+<span class="sd">             Class-level attribute specifying the number of elements</span>
+<span class="sd">            in the collection.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __len__(cls) -&gt; int:</span>
+<span class="sd">            Returns the length of the collection class.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int:</span>
+<span class="sd">             The number of elements in the collection.</span>
+<span class="sd">        __iter__(cls) -&gt; typing.Iterator[T]:</span>
+<span class="sd">            Should return an iterator over the elements of the collection class.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        typing.Iterator[T]:</span>
+<span class="sd">             An iterator over the collection elements.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the number of elements in the instance of the class.</span>
+<span class="sd">        This method returns the &#39;length&#39; attribute of the class instance, which should represent the number of elements it contains.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int:</span>
+<span class="sd">                 The number of elements in the instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">length</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterates over the elements of the collection class.</span>
+<span class="sd">        This method enables the class to be iterable, allowing it to be used in for-loops</span>
+<span class="sd">        and other contexts where an iterator is expected. It utilizes the &#39;iter_collection&#39;</span>
+<span class="sd">        function to yield elements of the collection.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            typing.Iterator[T]:</span>
+<span class="sd">                 An iterator for the collection class that yields elements</span>
+<span class="sd">                of type &#39;T&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">iter_collection</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.model.collection.CollectionMetaclass.__iter__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__iter__</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Iterates over the elements of the collection class.
+This method enables the class to be iterable, allowing it to be used in for-loops
+and other contexts where an iterator is expected. It utilizes the 'iter_collection'
+function to yield elements of the collection.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Iterator">Iterator</span>[<span title="stateforward.model.collection.T">T</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>typing.Iterator[T]:
+ An iterator for the collection class that yields elements
+of type 'T'.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Iterates over the elements of the collection class.</span>
+<span class="sd">    This method enables the class to be iterable, allowing it to be used in for-loops</span>
+<span class="sd">    and other contexts where an iterator is expected. It utilizes the &#39;iter_collection&#39;</span>
+<span class="sd">    function to yield elements of the collection.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        typing.Iterator[T]:</span>
+<span class="sd">             An iterator for the collection class that yields elements</span>
+<span class="sd">            of type &#39;T&#39;.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">iter_collection</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.model.collection.CollectionMetaclass.__len__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__len__</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Computes the number of elements in the instance of the class.
+This method returns the 'length' attribute of the class instance, which should represent the number of elements it contains.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>int</code></td>          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The number of elements in the instance.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the number of elements in the instance of the class.</span>
+<span class="sd">    This method returns the &#39;length&#39; attribute of the class instance, which should represent the number of elements it contains.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int:</span>
+<span class="sd">             The number of elements in the instance.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">length</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="stateforward.model.collection.is_collection" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">is_collection</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Checks whether the given value is an instance of a Collection subtype.
+This function will return True if <code>value</code> is a subtype other than the base Collection type
+itself. It utilizes the <code>is_subtype</code> function to perform its check.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>value</code></td>
+          <td>
+                <code><span title="typing.Any">Any</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The value to be checked.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>bool</code></td>          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>True if <code>value</code> is a subtype of Collection, False otherwise.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_collection</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks whether the given value is an instance of a Collection subtype.</span>
+<span class="sd">    This function will return True if `value` is a subtype other than the base Collection type</span>
+<span class="sd">    itself. It utilizes the `is_subtype` function to perform its check.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value (typing.Any):</span>
+<span class="sd">             The value to be checked.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool:</span>
+<span class="sd">             True if `value` is a subtype of Collection, False otherwise.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">is_subtype</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">Collection</span><span class="p">,))</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="stateforward.model.collection.collection" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">collection</span><span class="p">(</span><span class="o">*</span><span class="n">elements</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Creates a new collection type with the specified elements.
+This function dynamically generates a new collection type by subclassing a 'Collection' base class. The new type includes a 'length' class attribute representing the number of elements provided, and each element is added as a class attribute with the index as the key.
+The generated collection type is cast to 'ElementType' before being returned.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>*elements</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="stateforward.model.element.ElementType" href="../Element/#stateforward.model.element.ElementType">ElementType</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Variable length argument list representing the elements to include in the new collection type.</p>
+            </div>
+          </td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>type[<a class="autorefs autorefs-internal" title="stateforward.model.collection.Collection" href="#stateforward.model.collection.Collection">Collection</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>type['Collection']:
+ A new collection type that includes the provided elements as attributes, along with a 'length' class attribute.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">collection</span><span class="p">(</span><span class="o">*</span><span class="n">elements</span><span class="p">:</span> <span class="n">ElementType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="s2">&quot;Collection&quot;</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a new collection type with the specified elements.</span>
+<span class="sd">    This function dynamically generates a new collection type by subclassing a &#39;Collection&#39; base class. The new type includes a &#39;length&#39; class attribute representing the number of elements provided, and each element is added as a class attribute with the index as the key.</span>
+<span class="sd">    The generated collection type is cast to &#39;ElementType&#39; before being returned.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        *elements (ElementType):</span>
+<span class="sd">             Variable length argument list representing the elements to include in the new collection type.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        type[&#39;Collection&#39;]:</span>
+<span class="sd">             A new collection type that includes the provided elements as attributes, along with a &#39;length&#39; class attribute.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_collection</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
+        <span class="s2">&quot;collection&quot;</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">Collection</span><span class="p">,),</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">),</span>
+            <span class="o">**</span><span class="nb">dict</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">element</span><span class="p">)</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">)),</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">ElementType</span><span class="p">,</span> <span class="n">new_collection</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="stateforward.model.collection.iter_collection" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">iter_collection</span><span class="p">(</span><span class="n">element</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Iterates over a collection and yields its elements one by one.
+This function takes a 'Collection' object or its type and creates an
+iterator that yields each element of the collection in sequence. The
+'Collection' interface is expected to have a 'length' attribute and
+allow accessing its elements by index, with indices being string
+representations of integers starting from 0.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>element</code></td>
+          <td>
+                <code><span title="typing.Union">Union</span>[type[<a class="autorefs autorefs-internal" title="stateforward.model.collection.Collection" href="#stateforward.model.collection.Collection">Collection</a>[<span title="stateforward.model.collection.T">T</span>]], <a class="autorefs autorefs-internal" title="stateforward.model.collection.Collection" href="#stateforward.model.collection.Collection">Collection</a>[<span title="stateforward.model.collection.T">T</span>]]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A 'Collection' object or its type, which is expected to
+fulfill the interface requirements mentioned above.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>Yields:</p>
+<p>Returns:</p>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>AttributeError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If the 'Collection' object does not have a 'length'
+attribute or does not support accessing elements by index.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iter_collection</span><span class="p">(</span>
+    <span class="n">element</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="s2">&quot;Collection[T]&quot;</span><span class="p">],</span> <span class="s2">&quot;Collection[T]&quot;</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Generator</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Iterates over a collection and yields its elements one by one.</span>
+<span class="sd">    This function takes a &#39;Collection&#39; object or its type and creates an</span>
+<span class="sd">    iterator that yields each element of the collection in sequence. The</span>
+<span class="sd">    &#39;Collection&#39; interface is expected to have a &#39;length&#39; attribute and</span>
+<span class="sd">    allow accessing its elements by index, with indices being string</span>
+<span class="sd">    representations of integers starting from 0.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        element:</span>
+<span class="sd">             A &#39;Collection&#39; object or its type, which is expected to</span>
+<span class="sd">            fulfill the interface requirements mentioned above.</span>
+
+<span class="sd">    Yields:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        AttributeError:</span>
+<span class="sd">             If the &#39;Collection&#39; object does not have a &#39;length&#39;</span>
+<span class="sd">            attribute or does not support accessing elements by index.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">length</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="stateforward.model.collection.sort_collection" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">sort_collection</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sorts a given collection in place based on the specified key and order.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>element</code></td>
+          <td>
+                <code>type[<a class="autorefs autorefs-internal" title="stateforward.model.collection.Collection" href="#stateforward.model.collection.Collection">Collection</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The collection instance to be sorted. The collection should have attributes accessible by string representations of indices.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>key</code></td>
+          <td>
+                <code>callable</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A function that serves as a key for the sort comparison. Defaults to None, which means that the items are sorted directly without calculating a separate key value.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>reverse</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If set to True, the collection is sorted in reverse (descending) order; if False (default), the collection is sorted in ascending order.</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>AttributeError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If the collection does not have attributes corresponding to string representations of indices, or if the attributes can't be set.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">sort_collection</span><span class="p">(</span><span class="n">element</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="s2">&quot;Collection&quot;</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sorts a given collection in place based on the specified key and order.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        element (type[&#39;Collection&#39;]):</span>
+<span class="sd">             The collection instance to be sorted. The collection should have attributes accessible by string representations of indices.</span>
+<span class="sd">        key (callable, optional):</span>
+<span class="sd">             A function that serves as a key for the sort comparison. Defaults to None, which means that the items are sorted directly without calculating a separate key value.</span>
+<span class="sd">        reverse (bool, optional):</span>
+<span class="sd">             If set to True, the collection is sorted in reverse (descending) order; if False (default), the collection is sorted in ascending order.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        AttributeError:</span>
+<span class="sd">             If the collection does not have attributes corresponding to string representations of indices, or if the attributes can&#39;t be set.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sorted_elements</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+        <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">length</span><span class="p">)),</span>
+        <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+        <span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">_element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_elements</span><span class="p">):</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">_element</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="stateforward.model.collection.extend_collection" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">extend_collection</span><span class="p">(</span><span class="n">collection_element</span><span class="p">,</span> <span class="o">*</span><span class="n">elements</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Extends a collection with additional elements.
+This function takes a collection element and an arbitrary number of elements to be added to the collection.
+Each element is associated with the collection element using an identifier as the name of the association.
+The name of the association is determined by the current length of the collection. After adding each element,
+the length of the collection is incremented.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>collection_element</code></td>
+          <td>
+                <code><span title="stateforward.model.collection.CollectionType">CollectionType</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The collection to be extended.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>*elements</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="stateforward.model.collection.Collection" href="#stateforward.model.collection.Collection">Collection</a>[<a class="autorefs autorefs-internal" title="stateforward.model.element.ElementType" href="../Element/#stateforward.model.element.ElementType">ElementType</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A variable number of elements that will be added to the collection.</p>
+            </div>
+          </td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>Raises:</p>
+<p>Note:</p>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/model/collection.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">extend_collection</span><span class="p">(</span>
+    <span class="n">collection_element</span><span class="p">:</span> <span class="s2">&quot;CollectionType&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">elements</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Collection</span><span class="p">[</span><span class="n">ElementType</span><span class="p">]</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extends a collection with additional elements.</span>
+<span class="sd">    This function takes a collection element and an arbitrary number of elements to be added to the collection.</span>
+<span class="sd">    Each element is associated with the collection element using an identifier as the name of the association.</span>
+<span class="sd">    The name of the association is determined by the current length of the collection. After adding each element,</span>
+<span class="sd">    the length of the collection is incremented.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        collection_element (CollectionType):</span>
+<span class="sd">             The collection to be extended.</span>
+<span class="sd">        *elements (Collection[ElementType]):</span>
+<span class="sd">             A variable number of elements that will be added to the collection.</span>
+
+<span class="sd">    Raises:</span>
+
+<span class="sd">    Note:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+        <span class="n">add_association_to</span><span class="p">(</span><span class="n">collection_element</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">collection_element</span><span class="o">.</span><span class="n">length</span><span class="p">))</span>
+        <span class="n">collection_element</span><span class="o">.</span><span class="n">length</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.top", "navigation.indexes", "navigation.expand", "search.highlight", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4327 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Async%20Behavior%20Interpreter/">
+      
+      
+        <link rel="next" href="../Async%20StateMachine%20Interpreter/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
+    
+    
+      
+        <title>Async Interpreter - StateForward</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.4b4a2bd9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="StateForward" class="md-header__button md-logo" aria-label="StateForward" data-md-component="logo">
+      
+  <img src="../../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            StateForward
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Async Interpreter
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="StateForward" class="md-nav__button md-logo" aria-label="StateForward" data-md-component="logo">
+      
+  <img src="../../../../../assets/logo.png" alt="logo">
+
+    </a>
+    StateForward
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_1" id="__nav_2_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Core
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Core
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Core/Decorators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Decorators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Core/Elements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Elements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Core/Functional/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functional
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_2" id="__nav_2_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Modelling
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Modelling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Modelling/Association/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Association
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Modelling/Collection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Modelling/Decorators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Decorators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Modelling/Element/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Element
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Modelling/Model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Modelling/Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Modelling/Preprocessor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preprocessor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Modelling/Validator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Validator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Modelling/Visitor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visitor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_3" id="__nav_2_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Protocols
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Protocols
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Protocols/Clock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Protocols/Future/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Future
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Protocols/Interpreter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Protocols/Logger/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logger
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Protocols/Queue/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Queue
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_4" id="__nav_2_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    StateMachine
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            StateMachine
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Clock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Elements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Elements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Preprocessor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preprocessor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_4_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_4_5" id="__nav_2_3_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Interpreters
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_3_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Interpreters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Async%20Behavior%20Interpreter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Async Behavior Interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Async Interpreter
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Async Interpreter
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter" class="md-nav__link">
+    AsyncInterpreter
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncInterpreter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.is_active" class="md-nav__link">
+    is_active()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.pop" class="md-nav__link">
+    pop()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.push" class="md-nav__link">
+    push()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.run" class="md-nav__link">
+    run()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.send" class="md-nav__link">
+    send()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.start" class="md-nav__link">
+    start()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.step" class="md-nav__link">
+    step()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.terminate" class="md-nav__link">
+    terminate()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.wait" class="md-nav__link">
+    wait()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.InterpreterStep" class="md-nav__link">
+    InterpreterStep
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.Null" class="md-nav__link">
+    Null
+  </a>
+  
+    <nav class="md-nav" aria-label="Null">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.Null.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Async%20StateMachine%20Interpreter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Async StateMachine Interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Examples/Complete%20StateMachine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Complete StateMachine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Examples/LightSwitch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LightSwitch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Examples/Microwave/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Microwave
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Examples/TrafficLight/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TrafficLight
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter" class="md-nav__link">
+    AsyncInterpreter
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncInterpreter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.is_active" class="md-nav__link">
+    is_active()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.pop" class="md-nav__link">
+    pop()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.push" class="md-nav__link">
+    push()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.run" class="md-nav__link">
+    run()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.send" class="md-nav__link">
+    send()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.start" class="md-nav__link">
+    start()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.step" class="md-nav__link">
+    step()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.terminate" class="md-nav__link">
+    terminate()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.wait" class="md-nav__link">
+    wait()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.InterpreterStep" class="md-nav__link">
+    InterpreterStep
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.Null" class="md-nav__link">
+    Null
+  </a>
+  
+    <nav class="md-nav" aria-label="Null">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stateforward.state_machine.interpreters.asynchronous.async_interpreter.Null.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Async Interpreter</h1>
+
+<div class="doc doc-object doc-module">
+
+
+
+
+  <div class="doc doc-contents first">
+  
+      <p>The <code>async_interpreter</code> module provides an asynchronous execution framework specifically designed for state-based systems, utilizing asynchronous I/O provided by Python's asyncio library. It is built upon the concept of interacting with different models, events, queues, and clocks within state-based systems. This module contains several key classes and components, each working together to execute sequences of operations in a non-blocking manner. Key components include <code>InterpreterStep</code>, <code>AsyncInterpreter</code>, and <code>Null</code>, as well as crucial controllable constructs such as <code>queue</code>, <code>clock</code>, <code>stack</code>, and <code>log</code>. The module defines the functioning of an asynchronous interpreter for state machine workflows, providing methods for event handling, concurrency management, and execution control. Notably, the <code>AsyncInterpreter</code> class inherits from <code>model.Element</code> and is parameterized to work with various model types, enriching its capability to interface with different state machine elements. This module is essential for scenarios where asynchronous event handling and state management are paramount, and it relies heavily on the asyncio event loop and future constructs for its operation.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+
+<h2 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter" class="doc doc-heading">
+          <code>AsyncInterpreter</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="stateforward.model.Element" href="../../../Modelling/Element/#stateforward.model.element.Element">Element</a></code>, <code><span title="typing.Generic">Generic</span>[<span title="stateforward.state_machine.interpreters.asynchronous.async_interpreter.T">T</span>]</code></p>
+
+  
+      <p>An asynchronous interpreter designed to operate with the provided state machine.
+This interpreter runs within the asyncio event loop and handles asynchronous task management
+and event processing for the state machine. It manages a queue of events and a stack to
+maintain the state of in-flight operations.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>queue</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="stateforward.protocols.queue.Queue" href="../../../Protocols/Queue/#stateforward.protocols.queue.Queue">Queue</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The queue for managing incoming events.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>clock</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="stateforward.protocols.clock.Clock" href="../../../Protocols/Clock/#stateforward.protocols.clock.Clock">Clock</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An object managing the clock speed for the interpreter's operations.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>stack</code></td>
+          <td>
+                <code>dict[<span title="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.model.Element">Element</span>, <span title="asyncio.Future">Future</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A dictionary mapping state machine elements
+to their associated futures/tasks.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>loop</code></td>
+          <td>
+                <code><span title="asyncio.AbstractEventLoop">AbstractEventLoop</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The event loop in which this interpreter operates.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>log</code></td>
+          <td>
+                <code><span title="logging.Logger">Logger</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Logger for the interpreter to output its activity.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>running</code></td>
+          <td>
+                <code><span title="asyncio.Event">Event</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An event signaling whether the interpreter is currently running.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>stepping</code></td>
+          <td>
+                <code><span title="asyncio.Lock">Lock</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A lock to ensure step execution is done atomically.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>model</code></td>
+          <td>
+                <code><span title="stateforward.state_machine.interpreters.asynchronous.async_interpreter.T">T</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A generic type parameter representing the state machine model.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Methods:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td><code>__init__</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Queue, log: logging.Logger=None):
+Initializes the AsyncInterpreter with a queue and an optional logger.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>send</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>model.Element):
+Sends an event to be processed by the state machine.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>start</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>asyncio.AbstractEventLoop=None):
+Starts the interpreter within the given or default event loop.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>wait</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>typing.Union[asyncio.Task, asyncio.Future],</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>name</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>str=None, return_when: str=asyncio.FIRST_COMPLETED) -&gt; asyncio.Task:
+Waits for the given tasks to complete, returning an asyncio.Task wrapping the wait operation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>run</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>The coroutine that runs the main event processing loop of the interpreter.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>step</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Processes the next set of tasks from the stack.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>is_active</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>model.Element) -&gt; bool:
+Checks if the given elements are active within the current stack.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>push</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>model.Element,</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>future</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>typing.Union[Future, asyncio.Task]=NULL):
+Pushes a new element and associated future/task onto the stack.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>pop</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>model.Element, *, result: typing.Any=NULL):
+Pops an element and its associated task from the stack, handling its result.</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>terminate</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Terminates the interpreter, cleaning up and cancelling tasks as necessary.</p>
+              </div>
+            </td>
+          </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">AsyncInterpreter</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An asynchronous interpreter designed to operate with the provided state machine.</span>
+<span class="sd">    This interpreter runs within the asyncio event loop and handles asynchronous task management</span>
+<span class="sd">    and event processing for the state machine. It manages a queue of events and a stack to</span>
+<span class="sd">    maintain the state of in-flight operations.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        queue (Queue):</span>
+<span class="sd">             The queue for managing incoming events.</span>
+<span class="sd">        clock (Clock):</span>
+<span class="sd">             An object managing the clock speed for the interpreter&#39;s operations.</span>
+<span class="sd">        stack (dict[model.Element, asyncio.Future]):</span>
+<span class="sd">             A dictionary mapping state machine elements</span>
+<span class="sd">            to their associated futures/tasks.</span>
+<span class="sd">        loop (asyncio.AbstractEventLoop):</span>
+<span class="sd">             The event loop in which this interpreter operates.</span>
+<span class="sd">        log (logging.Logger):</span>
+<span class="sd">             Logger for the interpreter to output its activity.</span>
+<span class="sd">        running (asyncio.Event):</span>
+<span class="sd">             An event signaling whether the interpreter is currently running.</span>
+<span class="sd">        stepping (asyncio.Lock):</span>
+<span class="sd">             A lock to ensure step execution is done atomically.</span>
+<span class="sd">        model (T):</span>
+<span class="sd">             A generic type parameter representing the state machine model.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__(self, queue:</span>
+<span class="sd">             Queue, log: logging.Logger=None):</span>
+<span class="sd">            Initializes the AsyncInterpreter with a queue and an optional logger.</span>
+<span class="sd">        send(self, event:</span>
+<span class="sd">             model.Element):</span>
+<span class="sd">            Sends an event to be processed by the state machine.</span>
+<span class="sd">        start(self, loop:</span>
+<span class="sd">             asyncio.AbstractEventLoop=None):</span>
+<span class="sd">            Starts the interpreter within the given or default event loop.</span>
+<span class="sd">        wait(self, *tasks:</span>
+<span class="sd">             typing.Union[asyncio.Task, asyncio.Future],</span>
+<span class="sd">        name:</span>
+<span class="sd">             str=None, return_when: str=asyncio.FIRST_COMPLETED) -&gt; asyncio.Task:</span>
+<span class="sd">            Waits for the given tasks to complete, returning an asyncio.Task wrapping the wait operation.</span>
+<span class="sd">        run(self) -&gt; None:</span>
+<span class="sd">            The coroutine that runs the main event processing loop of the interpreter.</span>
+<span class="sd">        step(self) -&gt; None:</span>
+<span class="sd">            Processes the next set of tasks from the stack.</span>
+<span class="sd">        is_active(self, *elements:</span>
+<span class="sd">             model.Element) -&gt; bool:</span>
+<span class="sd">            Checks if the given elements are active within the current stack.</span>
+<span class="sd">        push(self, element:</span>
+<span class="sd">             model.Element,</span>
+<span class="sd">        future:</span>
+<span class="sd">             typing.Union[Future, asyncio.Task]=NULL):</span>
+<span class="sd">            Pushes a new element and associated future/task onto the stack.</span>
+<span class="sd">        pop(self, element:</span>
+<span class="sd">             model.Element, *, result: typing.Any=NULL):</span>
+<span class="sd">            Pops an element and its associated task from the stack, handling its result.</span>
+<span class="sd">        terminate(self) -&gt; asyncio.Task:</span>
+<span class="sd">            Terminates the interpreter, cleaning up and cancelling tasks as necessary.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">queue</span><span class="p">:</span> <span class="n">Queue</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">clock</span><span class="p">:</span> <span class="n">Clock</span>
+    <span class="n">stack</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">loop</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">AbstractEventLoop</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="n">running</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">stepping</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Lock</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Queue</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the instance with a queue, an optional log, and internal attributes.</span>
+<span class="sd">        This method sets up the data structures and synchronization primitives required for the operation</span>
+<span class="sd">        of an instance. It assigns the queue to the instance, initializes a stack as a dictionary,</span>
+<span class="sd">        prepares an asyncio event to manage the running state, and sets up logging.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            queue (Queue):</span>
+<span class="sd">                 A queue object used for inter-thread or inter-process communication.</span>
+<span class="sd">            log (logging.Logger, optional):</span>
+<span class="sd">                 A logger instance for logging messages. If not provided, it falls back to a default logger.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            stack (dict):</span>
+<span class="sd">                 A dictionary to hold instance-specific data.</span>
+<span class="sd">            queue (Queue):</span>
+<span class="sd">                 The queue object passed during initialization.</span>
+<span class="sd">            running (asyncio.Event):</span>
+<span class="sd">                 An event to indicate whether the instance is running.</span>
+<span class="sd">            log (logging.Logger):</span>
+<span class="sd">                 A logger instance for outputting logs.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span>
+
+    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends an event to be processed by the state machine.</span>
+<span class="sd">        This method logs the receipt of the event, pushes it to the stack along with a new Future object, adds the event to a queue, and then awaits the processing of the event. The method returns the result of waiting for the future associated with the event to be completed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (model.Element):</span>
+<span class="sd">                 The event to be sent to the state machine for processing.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># push the event onto the stack</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">())</span>
+        <span class="c1"># add the event to the queue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">put_nowait</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span>
+            <span class="n">future</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="si">}</span><span class="s2">.sent&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">loop</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">AbstractEventLoop</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts an asynchronous task to run the state machine in an event loop.</span>
+<span class="sd">        This method initializes the event loop for the state machine, logs the state machine&#39;s qualified name,</span>
+<span class="sd">        and then creates and starts an asynchronous task for the state machine&#39;s `run` method.</span>
+<span class="sd">        It pushes the running task into a tracking structure for managing tasks and then waits for the</span>
+<span class="sd">        initialization to complete before proceeding.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            loop (asyncio.AbstractEventLoop, optional):</span>
+<span class="sd">                 The event loop in which the state machine will</span>
+<span class="sd">                be run. If not provided, the current event loop will be used.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A `wait` wrapper that is used to wait for two events:</span>
+<span class="sd">                 the task that runs the state machine</span>
+<span class="sd">                to complete, and a separate task that signals the state machine is running.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">qualified_name</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting </span><span class="si">{</span><span class="n">qualified_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">loop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loop</span> <span class="o">=</span> <span class="n">loop</span> <span class="ow">or</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">qualified_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">wait</span><span class="p">()))</span>
+
+    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">tasks</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">],</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">return_when</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_COMPLETED</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Waits for the completion of one or more asyncio.Task or asyncio.Future objects.</span>
+<span class="sd">        This function is a coroutine that accepts any number of asyncio.Task or asyncio.Future</span>
+<span class="sd">        objects and an optional name for the underlying task that will wait for the</span>
+<span class="sd">        provided tasks or futures to complete. The function will schedule the execution</span>
+<span class="sd">        of these tasks or futures on the event loop, and wait until the conditions specified</span>
+<span class="sd">        by return_when are met. return_when can indicate waiting for the first task to</span>
+<span class="sd">        complete (asyncio.FIRST_COMPLETED), all tasks to complete (asyncio.ALL_COMPLETED),</span>
+<span class="sd">        or the first task to not be cancelled (asyncio.FIRST_EXCEPTION).</span>
+<span class="sd">        Upon completing the wait condition, the function will return the task that was created</span>
+<span class="sd">        to perform the wait operation. If any of the awaited tasks or futures raise an</span>
+<span class="sd">        exception during execution, the exception will be propagated.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *tasks (Union[asyncio.Task, asyncio.Future]):</span>
+<span class="sd">                 An arbitrary number of asyncio.Task</span>
+<span class="sd">                or asyncio.Future objects to be awaited.</span>
+<span class="sd">            name (str, optional):</span>
+<span class="sd">                 An optional name for the asyncio.Task that will be created</span>
+<span class="sd">                to perform the waiting operation. If not provided, a name is generated by</span>
+<span class="sd">                concatenating the names of the tasks with &#39;_and_&#39;.</span>
+<span class="sd">            return_when (str):</span>
+<span class="sd">                 The condition that determines when the wait operation</span>
+<span class="sd">                should return. Must be one of asyncio.FIRST_COMPLETED, asyncio.ALL_COMPLETED,</span>
+<span class="sd">                or asyncio.FIRST_EXCEPTION.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            asyncio.Task:</span>
+<span class="sd">                 The task that was created to wait for the provided tasks or futures.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">async</span> <span class="k">def</span> <span class="nf">wait_for_tasks</span><span class="p">(</span><span class="n">_tasks</span><span class="o">=</span><span class="n">tasks</span><span class="p">,</span> <span class="n">_return_when</span><span class="o">=</span><span class="n">return_when</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Waits for the completion of tasks, possibly returning before all tasks are finished based on a condition.</span>
+<span class="sd">            This function asynchronously waits for the `_tasks` iterable of tasks to reach a completion state, which is determined by the `_return_when` condition. Once the condition is met, it retrieves one of the completed tasks from `done` set. If that task raised an exception, the exception is propagated by awaiting on the task object.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                _tasks (Iterable[Task]):</span>
+<span class="sd">                     The collection of asyncio.Task objects to wait on. Defaults to the `tasks` variable in the current context.</span>
+<span class="sd">                _return_when (str):</span>
+<span class="sd">                     The condition upon which the function should return. This condition dictates whether the function waits for all tasks to complete, or returns earlier. Defaults to the `return_when` variable in the current context.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                Tuple[Set[Task], Set[Task]]:</span>
+<span class="sd">                     A tuple containing two sets. The first set contains all tasks that are done, and the second set contains all tasks that are pending.</span>
+
+<span class="sd">            Raises:</span>
+<span class="sd">                Any exception raised by a task:</span>
+<span class="sd">                     If any task among `_tasks` raises an exception, that exception is propagated.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">_tasks</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">_return_when</span><span class="p">)</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="n">done</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">task</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span>
+            <span class="n">wait_for_tasks</span><span class="p">(),</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;_and_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Asynchronously runs the process associated with the class instance.</span>
+<span class="sd">        This coroutine continuously executes the &#39;step&#39; method and awaits for a sleep interval based on the &#39;clock.multiplier&#39;. It checks if the instance is active and if the &#39;running&#39; flag is set before each iteration. If the &#39;running&#39; flag is cancelled, it logs a debug message indicating the cancellation. If the &#39;running&#39; flag is still set after an interruption, it ensures that the &#39;terminate&#39; method is called.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            asyncio.CancelledError:</span>
+<span class="sd">                 If the coroutine is cancelled during its execution.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Running </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> clock multiplier </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">multiplier</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+                    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+                    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">multiplier</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cancelled </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs an asynchronous iteration step over a collection of futures stored in an instance&#39;s stack.</span>
+<span class="sd">        This method iterates through the values of the instance&#39;s stack attribute, which is expected to be a mapping of futures. It checks if any of the futures have raised an exception. If an exception is encountered in any future, it is immediately raised, halting the iteration.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception:</span>
+<span class="sd">                 Any exception raised by a future in the stack.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">exception</span> <span class="o">:=</span> <span class="n">future</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">exception</span>
+
+    <span class="k">def</span> <span class="nf">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">elements</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if all specified elements are active within the current context.</span>
+<span class="sd">        This method determines if all elements provided as arguments exist in the context&#39;s active stack.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *elements (model.Element):</span>
+<span class="sd">                 Variable number of elements to check for activeness within the stack.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool:</span>
+<span class="sd">                 True if all specified elements are active (i.e., they exist in the stack); False otherwise.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">future</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Future</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">]</span> <span class="o">=</span> <span class="n">NULL</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pushes an element onto the stack with an associated future or task, ensuring uniqueness.</span>
+<span class="sd">        This method adds an element to an internal stack, associating it with a future or an asyncio task, which may represent the element&#39;s processing state.</span>
+<span class="sd">        If the element already exists within the stack, a ValueError is thrown to avoid duplication.</span>
+<span class="sd">        The method ensures that each element can have only one corresponding future or task.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element (model.Element):</span>
+<span class="sd">                 The element to push onto the stack.</span>
+<span class="sd">            future (typing.Union[Future, asyncio.Task], optional):</span>
+<span class="sd">                 A future or task to associate with the element.</span>
+<span class="sd">                If not provided, the default value defined by NULL will be used.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Future:</span>
+<span class="sd">                 The future or task associated with the element. This can be either the provided argument</span>
+<span class="sd">                or the one already associated with the element in case of previously existing entry.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError:</span>
+<span class="sd">                 If the element is already present in the stack.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;element </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="si">}</span><span class="s2"> already exists&quot;</span>
+            <span class="p">)</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">Future</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pops an element from the stack and sets the result if specified.</span>
+<span class="sd">        This method retrieves the future associated with a stack element, removes the element from the stack,</span>
+<span class="sd">        and optionally sets a result on the future. If the future is already done and contains an exception,</span>
+<span class="sd">        the exception is raised. If `result` is provided and not NULL, it is used to set the future&#39;s result.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element (model.Element):</span>
+<span class="sd">                 The element to be popped from the stack.</span>
+<span class="sd">            result (typing.Any, optional):</span>
+<span class="sd">                 The result to set on the future if not NULL. Defaults to NULL.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            typing.cast(Future, future):</span>
+<span class="sd">                 The future associated with the popped element.</span>
+
+<span class="sd">        Raises:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">NULL</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NULL</span><span class="p">:</span>
+                <span class="n">future</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">Future</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cancels the asynchronous task associated with the current instance if it is still running.</span>
+<span class="sd">        This method checks if the `running` attribute, presumably an instance of `threading.Event` or similar,</span>
+<span class="sd">        is set. If it is, it clears the `running` attribute to stop the task. It then retrieves the current</span>
+<span class="sd">        task using a `pop` method and inspects it. If the task is not yet completed, it will attempt</span>
+<span class="sd">        to cancel it by calling its `cancel` method. The task object, now potentially canceled, is</span>
+<span class="sd">        then recast as an `asyncio.Task` and returned.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            asyncio.Task:</span>
+<span class="sd">                 The task associated with this instance after attempting to cancel it if necessary.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+
+    <span class="n">model</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.__init__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>of an instance. It assigns the queue to the instance, initializes a stack as a dictionary,
+prepares an asyncio event to manage the running state, and sets up logging.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>queue</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="stateforward.protocols.queue.Queue" href="../../../Protocols/Queue/#stateforward.protocols.queue.Queue">Queue</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A queue object used for inter-thread or inter-process communication.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>log</code></td>
+          <td>
+                <code><span title="logging.Logger">Logger</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A logger instance for logging messages. If not provided, it falls back to a default logger.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>stack</code></td>
+          <td>
+                <code>dict</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A dictionary to hold instance-specific data.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>queue</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="stateforward.protocols.queue.Queue" href="../../../Protocols/Queue/#stateforward.protocols.queue.Queue">Queue</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The queue object passed during initialization.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>running</code></td>
+          <td>
+                <code><span title="asyncio.Event">Event</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An event to indicate whether the instance is running.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>log</code></td>
+          <td>
+                <code><span title="logging.Logger">Logger</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A logger instance for outputting logs.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Queue</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes the instance with a queue, an optional log, and internal attributes.</span>
+<span class="sd">    This method sets up the data structures and synchronization primitives required for the operation</span>
+<span class="sd">    of an instance. It assigns the queue to the instance, initializes a stack as a dictionary,</span>
+<span class="sd">    prepares an asyncio event to manage the running state, and sets up logging.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        queue (Queue):</span>
+<span class="sd">             A queue object used for inter-thread or inter-process communication.</span>
+<span class="sd">        log (logging.Logger, optional):</span>
+<span class="sd">             A logger instance for logging messages. If not provided, it falls back to a default logger.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        stack (dict):</span>
+<span class="sd">             A dictionary to hold instance-specific data.</span>
+<span class="sd">        queue (Queue):</span>
+<span class="sd">             The queue object passed during initialization.</span>
+<span class="sd">        running (asyncio.Event):</span>
+<span class="sd">             An event to indicate whether the instance is running.</span>
+<span class="sd">        log (logging.Logger):</span>
+<span class="sd">             A logger instance for outputting logs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">log</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.is_active" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">is_active</span><span class="p">(</span><span class="o">*</span><span class="n">elements</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Checks if all specified elements are active within the current context.
+This method determines if all elements provided as arguments exist in the context's active stack.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>*elements</code></td>
+          <td>
+                <code><span title="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.model.Element">Element</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Variable number of elements to check for activeness within the stack.</p>
+            </div>
+          </td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>bool</code></td>          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>True if all specified elements are active (i.e., they exist in the stack); False otherwise.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">elements</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if all specified elements are active within the current context.</span>
+<span class="sd">    This method determines if all elements provided as arguments exist in the context&#39;s active stack.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        *elements (model.Element):</span>
+<span class="sd">             Variable number of elements to check for activeness within the stack.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool:</span>
+<span class="sd">             True if all specified elements are active (i.e., they exist in the stack); False otherwise.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.pop" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">pop</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="n">NULL</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Pops an element from the stack and sets the result if specified.
+This method retrieves the future associated with a stack element, removes the element from the stack,
+and optionally sets a result on the future. If the future is already done and contains an exception,
+the exception is raised. If <code>result</code> is provided and not NULL, it is used to set the future's result.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>element</code></td>
+          <td>
+                <code><span title="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.model.Element">Element</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The element to be popped from the stack.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>result</code></td>
+          <td>
+                <code><span title="typing.Any">Any</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The result to set on the future if not NULL. Defaults to NULL.</p>
+            </div>
+          </td>
+          <td>
+                <code><span title="stateforward.state_machine.interpreters.asynchronous.async_interpreter.NULL">NULL</span></code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>typing.cast(Future, future):
+ The future associated with the popped element.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>Raises:</p>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pops an element from the stack and sets the result if specified.</span>
+<span class="sd">    This method retrieves the future associated with a stack element, removes the element from the stack,</span>
+<span class="sd">    and optionally sets a result on the future. If the future is already done and contains an exception,</span>
+<span class="sd">    the exception is raised. If `result` is provided and not NULL, it is used to set the future&#39;s result.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        element (model.Element):</span>
+<span class="sd">             The element to be popped from the stack.</span>
+<span class="sd">        result (typing.Any, optional):</span>
+<span class="sd">             The result to set on the future if not NULL. Defaults to NULL.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        typing.cast(Future, future):</span>
+<span class="sd">             The future associated with the popped element.</span>
+
+<span class="sd">    Raises:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">NULL</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NULL</span><span class="p">:</span>
+            <span class="n">future</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">Future</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.push" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">push</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">future</span><span class="o">=</span><span class="n">NULL</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Pushes an element onto the stack with an associated future or task, ensuring uniqueness.
+This method adds an element to an internal stack, associating it with a future or an asyncio task, which may represent the element's processing state.
+If the element already exists within the stack, a ValueError is thrown to avoid duplication.
+The method ensures that each element can have only one corresponding future or task.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>element</code></td>
+          <td>
+                <code><span title="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.model.Element">Element</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The element to push onto the stack.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>future</code></td>
+          <td>
+                <code><span title="typing.Union">Union</span>[<a class="autorefs autorefs-internal" title="stateforward.protocols.future.Future" href="../../../Protocols/Future/#stateforward.protocols.future.Future">Future</a>, <span title="asyncio.Task">Task</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A future or task to associate with the element.
+If not provided, the default value defined by NULL will be used.</p>
+            </div>
+          </td>
+          <td>
+                <code><span title="stateforward.state_machine.interpreters.asynchronous.async_interpreter.NULL">NULL</span></code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>Future</code></td>          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The future or task associated with the element. This can be either the provided argument
+or the one already associated with the element in case of previously existing entry.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>ValueError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If the element is already present in the stack.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">push</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">future</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Future</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">]</span> <span class="o">=</span> <span class="n">NULL</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pushes an element onto the stack with an associated future or task, ensuring uniqueness.</span>
+<span class="sd">    This method adds an element to an internal stack, associating it with a future or an asyncio task, which may represent the element&#39;s processing state.</span>
+<span class="sd">    If the element already exists within the stack, a ValueError is thrown to avoid duplication.</span>
+<span class="sd">    The method ensures that each element can have only one corresponding future or task.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        element (model.Element):</span>
+<span class="sd">             The element to push onto the stack.</span>
+<span class="sd">        future (typing.Union[Future, asyncio.Task], optional):</span>
+<span class="sd">             A future or task to associate with the element.</span>
+<span class="sd">            If not provided, the default value defined by NULL will be used.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Future:</span>
+<span class="sd">             The future or task associated with the element. This can be either the provided argument</span>
+<span class="sd">            or the one already associated with the element in case of previously existing entry.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError:</span>
+<span class="sd">             If the element is already present in the stack.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;element </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="si">}</span><span class="s2"> already exists&quot;</span>
+        <span class="p">)</span>
+    <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">Future</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.run" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">run</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Asynchronously runs the process associated with the class instance.
+This coroutine continuously executes the 'step' method and awaits for a sleep interval based on the 'clock.multiplier'. It checks if the instance is active and if the 'running' flag is set before each iteration. If the 'running' flag is cancelled, it logs a debug message indicating the cancellation. If the 'running' flag is still set after an interruption, it ensures that the 'terminate' method is called.</p>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="asyncio.CancelledError">CancelledError</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If the coroutine is cancelled during its execution.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Asynchronously runs the process associated with the class instance.</span>
+<span class="sd">    This coroutine continuously executes the &#39;step&#39; method and awaits for a sleep interval based on the &#39;clock.multiplier&#39;. It checks if the instance is active and if the &#39;running&#39; flag is set before each iteration. If the &#39;running&#39; flag is cancelled, it logs a debug message indicating the cancellation. If the &#39;running&#39; flag is still set after an interruption, it ensures that the &#39;terminate&#39; method is called.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        asyncio.CancelledError:</span>
+<span class="sd">             If the coroutine is cancelled during its execution.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Running </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> clock multiplier </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">multiplier</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">multiplier</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cancelled </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.send" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">send</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Sends an event to be processed by the state machine.
+This method logs the receipt of the event, pushes it to the stack along with a new Future object, adds the event to a queue, and then awaits the processing of the event. The method returns the result of waiting for the future associated with the event to be completed.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>event</code></td>
+          <td>
+                <code><span title="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.model.Element">Element</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The event to be sent to the state machine for processing.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>Returns:</p>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sends an event to be processed by the state machine.</span>
+<span class="sd">    This method logs the receipt of the event, pushes it to the stack along with a new Future object, adds the event to a queue, and then awaits the processing of the event. The method returns the result of waiting for the future associated with the event to be completed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        event (model.Element):</span>
+<span class="sd">             The event to be sent to the state machine for processing.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># push the event onto the stack</span>
+    <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">())</span>
+    <span class="c1"># add the event to the queue</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">put_nowait</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span>
+        <span class="n">future</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="si">}</span><span class="s2">.sent&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.start" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">start</span><span class="p">(</span><span class="n">loop</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Starts an asynchronous task to run the state machine in an event loop.
+This method initializes the event loop for the state machine, logs the state machine's qualified name,
+and then creates and starts an asynchronous task for the state machine's <code>run</code> method.
+It pushes the running task into a tracking structure for managing tasks and then waits for the
+initialization to complete before proceeding.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>loop</code></td>
+          <td>
+                <code><span title="asyncio.AbstractEventLoop">AbstractEventLoop</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The event loop in which the state machine will
+be run. If not provided, the current event loop will be used.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A <code>wait</code> wrapper that is used to wait for two events:
+ the task that runs the state machine
+to complete, and a separate task that signals the state machine is running.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">loop</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">AbstractEventLoop</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Starts an asynchronous task to run the state machine in an event loop.</span>
+<span class="sd">    This method initializes the event loop for the state machine, logs the state machine&#39;s qualified name,</span>
+<span class="sd">    and then creates and starts an asynchronous task for the state machine&#39;s `run` method.</span>
+<span class="sd">    It pushes the running task into a tracking structure for managing tasks and then waits for the</span>
+<span class="sd">    initialization to complete before proceeding.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        loop (asyncio.AbstractEventLoop, optional):</span>
+<span class="sd">             The event loop in which the state machine will</span>
+<span class="sd">            be run. If not provided, the current event loop will be used.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A `wait` wrapper that is used to wait for two events:</span>
+<span class="sd">             the task that runs the state machine</span>
+<span class="sd">            to complete, and a separate task that signals the state machine is running.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">qualified_name</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">qualified_name_of</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting </span><span class="si">{</span><span class="n">qualified_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loop</span> <span class="o">=</span> <span class="n">loop</span> <span class="ow">or</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">qualified_name</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">wait</span><span class="p">()))</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.step" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">step</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Performs an asynchronous iteration step over a collection of futures stored in an instance's stack.
+This method iterates through the values of the instance's stack attribute, which is expected to be a mapping of futures. It checks if any of the futures have raised an exception. If an exception is encountered in any future, it is immediately raised, halting the iteration.</p>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>Exception</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Any exception raised by a future in the stack.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>Returns:</p>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs an asynchronous iteration step over a collection of futures stored in an instance&#39;s stack.</span>
+<span class="sd">    This method iterates through the values of the instance&#39;s stack attribute, which is expected to be a mapping of futures. It checks if any of the futures have raised an exception. If an exception is encountered in any future, it is immediately raised, halting the iteration.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exception:</span>
+<span class="sd">             Any exception raised by a future in the stack.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">exception</span> <span class="o">:=</span> <span class="n">future</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exception</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.terminate" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">terminate</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Cancels the asynchronous task associated with the current instance if it is still running.
+This method checks if the <code>running</code> attribute, presumably an instance of <code>threading.Event</code> or similar,
+is set. If it is, it clears the <code>running</code> attribute to stop the task. It then retrieves the current
+task using a <code>pop</code> method and inspects it. If the task is not yet completed, it will attempt
+to cancel it by calling its <code>cancel</code> method. The task object, now potentially canceled, is
+then recast as an <code>asyncio.Task</code> and returned.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="asyncio.Task">Task</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>asyncio.Task:
+ The task associated with this instance after attempting to cancel it if necessary.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cancels the asynchronous task associated with the current instance if it is still running.</span>
+<span class="sd">    This method checks if the `running` attribute, presumably an instance of `threading.Event` or similar,</span>
+<span class="sd">    is set. If it is, it clears the `running` attribute to stop the task. It then retrieves the current</span>
+<span class="sd">    task using a `pop` method and inspects it. If the task is not yet completed, it will attempt</span>
+<span class="sd">    to cancel it by calling its `cancel` method. The task object, now potentially canceled, is</span>
+<span class="sd">    then recast as an `asyncio.Task` and returned.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        asyncio.Task:</span>
+<span class="sd">             The task associated with this instance after attempting to cancel it if necessary.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.AsyncInterpreter.wait" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">wait</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_COMPLETED</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Waits for the completion of one or more asyncio.Task or asyncio.Future objects.
+This function is a coroutine that accepts any number of asyncio.Task or asyncio.Future
+objects and an optional name for the underlying task that will wait for the
+provided tasks or futures to complete. The function will schedule the execution
+of these tasks or futures on the event loop, and wait until the conditions specified
+by return_when are met. return_when can indicate waiting for the first task to
+complete (asyncio.FIRST_COMPLETED), all tasks to complete (asyncio.ALL_COMPLETED),
+or the first task to not be cancelled (asyncio.FIRST_EXCEPTION).
+Upon completing the wait condition, the function will return the task that was created
+to perform the wait operation. If any of the awaited tasks or futures raise an
+exception during execution, the exception will be propagated.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>*tasks</code></td>
+          <td>
+                <code><span title="stateforward.core.Union">Union</span>[<span title="asyncio.Task">Task</span>, <span title="asyncio.Future">Future</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An arbitrary number of asyncio.Task
+or asyncio.Future objects to be awaited.</p>
+            </div>
+          </td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>An optional name for the asyncio.Task that will be created
+to perform the waiting operation. If not provided, a name is generated by
+concatenating the names of the tasks with '<em>and</em>'.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>return_when</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The condition that determines when the wait operation
+should return. Must be one of asyncio.FIRST_COMPLETED, asyncio.ALL_COMPLETED,
+or asyncio.FIRST_EXCEPTION.</p>
+            </div>
+          </td>
+          <td>
+                <code><span title="asyncio.FIRST_COMPLETED">FIRST_COMPLETED</span></code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="asyncio.Task">Task</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>asyncio.Task:
+ The task that was created to wait for the provided tasks or futures.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">wait</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">tasks</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">],</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">return_when</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_COMPLETED</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Waits for the completion of one or more asyncio.Task or asyncio.Future objects.</span>
+<span class="sd">    This function is a coroutine that accepts any number of asyncio.Task or asyncio.Future</span>
+<span class="sd">    objects and an optional name for the underlying task that will wait for the</span>
+<span class="sd">    provided tasks or futures to complete. The function will schedule the execution</span>
+<span class="sd">    of these tasks or futures on the event loop, and wait until the conditions specified</span>
+<span class="sd">    by return_when are met. return_when can indicate waiting for the first task to</span>
+<span class="sd">    complete (asyncio.FIRST_COMPLETED), all tasks to complete (asyncio.ALL_COMPLETED),</span>
+<span class="sd">    or the first task to not be cancelled (asyncio.FIRST_EXCEPTION).</span>
+<span class="sd">    Upon completing the wait condition, the function will return the task that was created</span>
+<span class="sd">    to perform the wait operation. If any of the awaited tasks or futures raise an</span>
+<span class="sd">    exception during execution, the exception will be propagated.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        *tasks (Union[asyncio.Task, asyncio.Future]):</span>
+<span class="sd">             An arbitrary number of asyncio.Task</span>
+<span class="sd">            or asyncio.Future objects to be awaited.</span>
+<span class="sd">        name (str, optional):</span>
+<span class="sd">             An optional name for the asyncio.Task that will be created</span>
+<span class="sd">            to perform the waiting operation. If not provided, a name is generated by</span>
+<span class="sd">            concatenating the names of the tasks with &#39;_and_&#39;.</span>
+<span class="sd">        return_when (str):</span>
+<span class="sd">             The condition that determines when the wait operation</span>
+<span class="sd">            should return. Must be one of asyncio.FIRST_COMPLETED, asyncio.ALL_COMPLETED,</span>
+<span class="sd">            or asyncio.FIRST_EXCEPTION.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        asyncio.Task:</span>
+<span class="sd">             The task that was created to wait for the provided tasks or futures.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wait_for_tasks</span><span class="p">(</span><span class="n">_tasks</span><span class="o">=</span><span class="n">tasks</span><span class="p">,</span> <span class="n">_return_when</span><span class="o">=</span><span class="n">return_when</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Waits for the completion of tasks, possibly returning before all tasks are finished based on a condition.</span>
+<span class="sd">        This function asynchronously waits for the `_tasks` iterable of tasks to reach a completion state, which is determined by the `_return_when` condition. Once the condition is met, it retrieves one of the completed tasks from `done` set. If that task raised an exception, the exception is propagated by awaiting on the task object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            _tasks (Iterable[Task]):</span>
+<span class="sd">                 The collection of asyncio.Task objects to wait on. Defaults to the `tasks` variable in the current context.</span>
+<span class="sd">            _return_when (str):</span>
+<span class="sd">                 The condition upon which the function should return. This condition dictates whether the function waits for all tasks to complete, or returns earlier. Defaults to the `return_when` variable in the current context.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple[Set[Task], Set[Task]]:</span>
+<span class="sd">                 A tuple containing two sets. The first set contains all tasks that are done, and the second set contains all tasks that are pending.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Any exception raised by a task:</span>
+<span class="sd">                 If any task among `_tasks` raises an exception, that exception is propagated.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">_tasks</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">_return_when</span><span class="p">)</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="n">done</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">task</span>
+
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span>
+        <span class="n">wait_for_tasks</span><span class="p">(),</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;_and_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">),</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+
+<h2 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.InterpreterStep" class="doc doc-heading">
+          <code>InterpreterStep</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="enum.Enum">Enum</span></code></p>
+
+  
+      <p>An enumeration to represent the status of an interpretation step.
+This class is an enumeration (Enum) which categorizes the state of an interpretation step into one of three possible statuses:</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>complete</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A status indicating that the interpretation step is complete and no further action is required.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>incomplete</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A status indicating that the interpretation step is not fully resolved and may require additional information or action.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code>deferred</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A status that denotes a delay in the completion or evaluation of the interpretation step, potentially awaiting external input or another event.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InterpreterStep</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An enumeration to represent the status of an interpretation step.</span>
+<span class="sd">    This class is an enumeration (Enum) which categorizes the state of an interpretation step into one of three possible statuses:</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        complete (str):</span>
+<span class="sd">             A status indicating that the interpretation step is complete and no further action is required.</span>
+<span class="sd">        incomplete (str):</span>
+<span class="sd">             A status indicating that the interpretation step is not fully resolved and may require additional information or action.</span>
+<span class="sd">        deferred (str):</span>
+<span class="sd">             A status that denotes a delay in the completion or evaluation of the interpretation step, potentially awaiting external input or another event.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">complete</span> <span class="o">=</span> <span class="s2">&quot;complete&quot;</span>
+    <span class="n">incomplete</span> <span class="o">=</span> <span class="s2">&quot;incomplete&quot;</span>
+    <span class="n">deferred</span> <span class="o">=</span> <span class="s2">&quot;deferred&quot;</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+
+<h2 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.Null" class="doc doc-heading">
+          <code>Null</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="asyncio.Future">Future</span></code></p>
+
+  
+      <p>A placeholder class designed to represent a Future with no value.
+This class is a subclass of <code>asyncio.Future</code> and is intended for scenarios where a Future-like object is required, but no actual result is expected. Upon initialization, it immediately sets its own result to <code>None</code>.</p>
+
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>None</code></td>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>This class does not have any public attributes besides those provided by its superclass.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Methods:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td><code>__init__</code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>Constructs a new <code>Null</code> object and sets its result to <code>None</code>.
+The <code>Null</code> class does not have its own methods, but inherits all methods from <code>asyncio.Future</code>.</p>
+              </div>
+            </td>
+          </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Null</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A placeholder class designed to represent a Future with no value.</span>
+<span class="sd">    This class is a subclass of `asyncio.Future` and is intended for scenarios where a Future-like object is required, but no actual result is expected. Upon initialization, it immediately sets its own result to `None`.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        None:</span>
+<span class="sd">             This class does not have any public attributes besides those provided by its superclass.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__:</span>
+<span class="sd">             Constructs a new `Null` object and sets its result to `None`.</span>
+<span class="sd">            The `Null` class does not have its own methods, but inherits all methods from `asyncio.Future`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes a new instance of the class.</span>
+<span class="sd">        This constructor method sets up the initial state of the object by calling its superclass initializer and setting the result attribute to None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="stateforward.state_machine.interpreters.asynchronous.async_interpreter.Null.__init__" class="doc doc-heading">
+          <code class="highlight language-python"><span class="fm">__init__</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+
+          <details class="quote">
+            <summary>Source code in <code>stateforward/state_machine/interpreters/asynchronous/async_interpreter.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes a new instance of the class.</span>
+<span class="sd">    This constructor method sets up the initial state of the object by calling its superclass initializer and setting the result attribute to None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.top", "navigation.indexes", "navigation.expand", "search.highlight", "search.suggest", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.81fa17fe.min.js"></script>
+      
+    
+  </body>
+</html>
