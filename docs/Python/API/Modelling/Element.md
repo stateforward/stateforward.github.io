@@ -1,0 +1,42 @@
+::: stateforward.model.element
+    options: 
+        show_root_toc_entry: false
+        show_root_heading: false
+        show_heading: false 
+        members:
+            - ElementType
+            - Element
+            - id_of
+            - type_of
+            - owned_elements_of
+            - descendants_of
+            - is_descendant_of
+            - ancestors_of
+            - is_ancestor_of
+            - set_model
+            - set_owner
+            - add_owned_element_to
+            - remove_owned_element_from
+            - add_association_to
+            - remove_association_from
+            - associations_of
+            - associations_for
+            - name_of
+            - attributes_of
+            - qualified_name_of
+            - is_type
+            - is_subtype
+            - is_element
+            - owner_of
+            - redefined_element_of
+            - is_owner_of
+            - specialize
+            - is_redefined
+            - redefine
+            - find_owned_elements_of
+            - find_owned_element_of
+            - find_ancestors_of
+            - find_ancestor_of
+            - find_descendants_of
+            - set_attribute
+            - new

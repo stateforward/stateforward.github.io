@@ -1,5 +1,5 @@
 site_name: "StateForward"
-watch: [ ../stateforward_python, docs ]
+watch: [ ../stateforward_python ]
 
 theme:
   font: 
@@ -56,6 +56,7 @@ markdown_extensions:
 
 plugins:
 - search
+- inline-svg
 - mkdocstrings:
     default_handler: python
     handlers:
@@ -64,14 +65,13 @@ plugins:
         options:
           docstring_options:
             ignore_init_summary: true
+          docstring_style: google
           docstring_section_style: table
-          filters: [ "!^_" ]
-          inherited_members: true
-          separate_signature: true
+          inherited_members: false
           show_root_heading: true
           show_root_full_path: false
           show_root_toc_entry: true
-          show_signature_annotations: true
+          show_signature_annotations: false
           show_symbol_type_heading: true
           show_symbol_type_toc: true
           signature_crossrefs: true

@@ -9,6 +9,7 @@ packages = [{include = "stateforward"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+mkdocs-plugin-inline-svg = "^0.1.0"
 
 [tool.poetry.group.dev.dependencies]
 mkdocstrings = "^0.23.0"

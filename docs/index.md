@@ -13,6 +13,10 @@ Stateforward is a comprehensive library designed to facilitate the creation and 
 
 ## Future Developments
 
+> **Note**
+>
+> stateforward_rust is nearing completion and will be used as the backend for the Python package. The Rust package will be released shortly after the Python package enters beta.
+
 Looking ahead, Stateforward aims to launch packages that allow Rust and JavaScript developers to utilize its features seamlessly integrated into their respective ecosystems. This expansion will empower developers to model and run state machines with high performance and in a language-agnostic manner, promoting unified design patterns across different platforms.
 
 By bridging the gap between different programming languages, Stateforward will enable a broader spectrum of software developers to leverage the power of state machines in their applications—be it web development with JavaScript or systems programming with Rust.
